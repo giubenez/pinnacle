@@ -13,9 +13,7 @@ A tool to automate our workflow for our planning routine
 4) Add a couch template and convert it. Set red line below the chouch (it exports the ROI and uses a bash script to find the position for the red line)
 5) Select the correct protocol. To load the protocols of your insitution click reload. Protocols targets should be named as described in the next point
 6) Fit Names: it's used to show the protocol targets and to rename the plan ROIs accordingly. PTVs should start with PTV, it's ring should start with ring, OAR_p indicates OAR-(PTV+ring). Indeed without the autoplanning feature it's not possible to associate the ROIs of the plan to the ones of the themplate.
-   
 ![image](https://github.com/user-attachments/assets/616d0d97-0403-4703-8161-fbb2422e3f8c)
-
 The red arrow can rename the OAR selected on the left with the corresponding protocol name on the right.
 The bottom part of the window is used to create auxiliary ROIs: once selected a ROI, "ring" button create a ring with the selected paddings (in-out plane or constant), UP create a ROI in the upper part, Down a roi in the bottom.
 The "_p" blue button create a ROI_p which is the selected ROI - (the ROIs flagged in the first column ("_p?")). The subtraction considers the ROIs selected in the menu and not the names in the protocol.
