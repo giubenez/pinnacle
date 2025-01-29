@@ -39,5 +39,32 @@ To sum up to 4 trials by copying the beams and prescriptions.
 
 
 
+## FindMyPatient
+With this script it is possible to find archived patients and archived physics.
+
+### FindMyPatient.sh
+This is not a pinnacle script but a shell script I wrote to create a database of the patients and of the physics inside the Archive directory. 
+1) First of all, edit the variables at the beginning of findMyPatient.sh file with the correct Archive path.
+2) Build the database by launching the script and pressing 3. The script roam around the archive and scann all the tar files looking for patients and physics.
+3)  When the database is complete, you can seach patients or physics (launch the script and select 1 or 2). Enlarge the window for a better visualization
+   
+![image](https://github.com/user-attachments/assets/72d7c70b-da84-4732-9461-eb3ad1c9d62c)
+
+### checkInstitution.sh
+
+Use this script to verify if all the patients contained in the archived/backupped institution are contained inside the tars of a folder.
+1) Copy and paste the script inside the folder containing all the *.tar of a backupped institution
+2) Launch the script and press 1
+3) Launch anodther time the script and press 2 (without closing the other instance)
+4) Whan both the scripts finish, press 3 in one of them. Close the other
+
+![image](https://github.com/user-attachments/assets/7635a568-d9f0-4bfd-838c-d99b6fe7e68d)
+
+
+
+
+
+
+
 
 
