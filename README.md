@@ -24,3 +24,20 @@ External_p is automatically renamed to surround
 11) Remove the padding, draw the grid (2 click necessar), select the correct grid resolution and load the template.
 
 
+## ChangeMachine
+
+A script to change the machine of all the beams in a plan without editing anything other. 
+Since changing the machine of an arc might change the MLC positions resulting in a non-deliverable plan, this script can be used to swap among geometrically equivalent machines.
+
+PLEASE NOTE THAT using this script to change to a non equivalent machine might result in a non deliverable plan.
+
+
+## SumTrials
+
+To sum up to 4 trials by copying the beams and prescriptions.
+![image](https://github.com/user-attachments/assets/ff42630e-f7ee-4531-b866-285ab4519fda)
+
+
+
+
+
