@@ -35,6 +35,7 @@ PLEASE NOTE THAT using this script to change to a non equivalent machine might r
 ## SumTrials
 
 To sum up to 4 trials by copying the beams and prescriptions.
+
 ![image](https://github.com/user-attachments/assets/ff42630e-f7ee-4531-b866-285ab4519fda)
 
 
