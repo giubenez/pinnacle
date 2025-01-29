@@ -1,0 +1,7 @@
+Store.StringAt.PrescName = TrialList.#"Somma".PrescriptionList.Current.Name;
+Store.At.PrescName.AppendString = "_2";
+//InfoMessage = TrialList.#"Somma".PrescriptionList.Current.Name;
+
+Store.StringAt.test = "IF.TrialList.Somma.PrescriptionList.Current.Name.STRINGEQUALTO.Store.At.Trial2Copy.PrescriptionList.Current.Name.THEN.Store.At.Trial2Copy.PrescriptionList.Current.Name = Store.StringAt.PrescName";
+Store.At.Trial2Copy.PrescriptionList.ChildrenEachCurrent.#"@".Store.At.test.Execute = "";
+

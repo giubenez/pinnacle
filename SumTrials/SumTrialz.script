@@ -1,0 +1,336 @@
+/**************************************************************
+***                 SumTrialz.Script                        ***
+***                  Giulio Benetti                         ***
+***            giulio.benetti@gmail.com                     ***
+***                                                         ***
+**************************************************************/
+
+
+//////////////////////////////////////////////////////////////
+//                      LOAD DEF                            //
+//////////////////////////////////////////////////////////////
+
+IF.Store.FloatAt.AvviatoTr.THEN. Store.StringAt.Trash. ELSE. Script.ExecuteNow = " /usr/local/adacnew/PinnacleSiteData/Scripts/SumTrials/SumTrialzDef.script"; 
+
+
+//////////////////////////////////////////////////////////////
+//                        WINDOW                            //
+//////////////////////////////////////////////////////////////
+
+// Close window if it is already open
+Store.At.SumTrialzMW.Unrealize = "Dismiss";
+Store.At.SumTrialzMW = "Dismiss";
+
+// Create the window
+Store.At.SumTrialzMW = GeoFORM {
+                   Name = "Somma Piani";
+                 };
+
+
+//////////////////////////////////////////////////////////////
+//                      LEVELS                              //
+//////////////////////////////////////////////////////////////
+
+
+Store.At.SumTrialzMW.WidgetList.GeoWidget = {
+      WidgetClass = "Form";
+      Name = "TopLevel";
+      Label = "Somma Trials v2.0";
+      Width = 290;
+      Height = 220; 
+      X = 2000;
+      Y = 200;
+    };
+
+
+	
+//////////////////////////////////////////////////////////////
+//                      Trial 1                             //
+//////////////////////////////////////////////////////////////
+
+Store .At .SumTrialzMW .AddChild = "";
+Store .At .SumTrialzMW .WidgetList .Last = {
+     Name = "Trial1Area";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 400;
+     Height = 20;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "FORM";
+     AttachBottom = "--";
+    };
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "Trial1Area";
+      X = 10;
+      Y = 5;
+      Width = 100;
+      Height = 20;
+      Name = "Trial 1";
+    };
+
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "Trial1Area";
+      Name = "Trial1Selector";
+      X = 100;
+      Y = 0;
+      Width = 150;
+      Height = 20;
+      QueryValueKey = "Store.StringAt.Trial1Name";
+      QueryListKey = "TrialList.*.Name";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Trial1Name";
+      ResetDependenciesWhenRealized = 1;
+    }; 
+	
+
+	
+	
+//////////////////////////////////////////////////////////////
+//                      Trial 2                             //
+//////////////////////////////////////////////////////////////
+
+Store .At .SumTrialzMW .AddChild = "";
+Store .At .SumTrialzMW .WidgetList .Last = {
+     Name = "Trial2Area";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 400;
+     Height = 20;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "Trial1Area";
+     AttachBottom = "--";
+    };
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "Trial2Area";
+      X = 10;
+      Y = 5;
+      Width = 100;
+      Height = 20;
+      Name = "Trial 2";
+    };
+
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "Trial2Area";
+      Name = "Trial2Selector";
+      X = 100;
+      Y = 0;
+      Width = 150;
+      Height = 20;
+      QueryValueKey = "Store.StringAt.Trial2Name";
+      QueryListKey = "TrialList.*.Name";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Trial2Name";
+      ResetDependenciesWhenRealized = 1;
+    }; 
+	
+
+//////////////////////////////////////////////////////////////
+//                      Trial 3                             //
+//////////////////////////////////////////////////////////////
+
+Store .At .SumTrialzMW .AddChild = "";
+Store .At .SumTrialzMW .WidgetList .Last = {
+     Name = "Trial3Area";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 400;
+     Height = 20;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "Trial2Area";
+     AttachBottom = "--";
+    };
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "Trial3Area";
+      X = 10;
+      Y = 5;
+      Width = 100;
+      Height = 20;
+      Name = "Trial 3 (opz)";
+    };
+
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "Trial3Area";
+      Name = "Trial3Selector";
+      X = 100;
+      Y = 0;
+      Width = 150;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "Store.StringAt.Trial3Name";
+      QueryListKey = "TrialList.*.Name";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Trial3Name";
+      ResetDependenciesWhenRealized = 1;
+    }; 
+	
+
+//////////////////////////////////////////////////////////////
+//                      Trial 4                             //
+//////////////////////////////////////////////////////////////
+
+Store .At .SumTrialzMW .AddChild = "";
+Store .At .SumTrialzMW .WidgetList .Last = {
+     Name = "Trial4Area";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 400;
+     Height = 20;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "Trial3Area";
+     AttachBottom = "--";
+    };
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "Trial4Area";
+      X = 10;
+      Y = 5;
+      Width = 100;
+      Height = 20;
+      Name = "Trial 4 (opz)";
+    };
+
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "Trial4Area";
+      Name = "Trial4Selector";
+      X = 100;
+      Y = 0;
+      Width = 150;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "Store.StringAt.Trial4Name";
+      QueryListKey = "TrialList.*.Name";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Trial4Name";
+      ResetDependenciesWhenRealized = 1;
+    }; 
+	
+
+
+//////////////////////////////////////////////////////////////
+//                        INFO                              //
+//////////////////////////////////////////////////////////////
+    
+    
+
+
+
+Store .At .SumTrialzMW .AddChild = "";
+Store .At .SumTrialzMW .WidgetList .Last = {
+     Name = "InfoArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 450;
+     Height = 50;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachBottom = "FORM";   
+    };
+
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "InfoArea";
+      X = 10;
+      Y = 5;
+      Width = 300;
+      Name = "   giulio.benetti@aulss8.veneto.it - 7305";
+    };
+
+//////////////////////////////////////////////////////////////
+//                        BUTTONS                           //
+//////////////////////////////////////////////////////////////
+    
+    
+
+
+
+Store .At .SumTrialzMW .AddChild = "";
+Store .At .SumTrialzMW .WidgetList .Last = {
+     Name = "ButtonArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 450;
+     Height = 50;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachBottom = "InfoArea";   
+    };
+
+
+// Dismiss Button
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ButtonArea";
+      Name = "DismissButton";
+      X = 0;
+      Y = 5;
+      Width = 80;
+      Font = "Bold";
+      Label = " Dismiss";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.SumTrialzMW.Unrealize";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FreeAt.SumTrialzMW";
+    };    
+    
+ 
+   
+
+Store.At.SumTrialzMW.AddChild = "";
+Store.At.SumTrialzMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ButtonArea";
+      Name = "SumButton";
+      X = 180;
+      Y = 5;
+      Width = 110;
+      Font = "Bold";
+      QueryColorKey = "Blue";
+      Label = "        SUM";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/adacnew/PinnacleSiteData/Scripts/SumTrials/startCopy.script";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.SumTrialzMW.Unrealize";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FreeAt.SumTrialzMW";
+    };    
+// Create the (non-modal) window and wait for user to enter value.
+
+
+
+
+
+Store.At.SumTrialzMW.Create = "";
+
+

@@ -1,0 +1,36 @@
+WaitMessage = "Script lanciato - Somma piani... ";
+
+
+TrialList.#"SommaOLD".Destroy = "";
+TrialList.#"Somma".Name = "SommaOLD";
+
+TrialList.Current =  Store.StringAt.Trial1Name;
+CopyCurrentTrial = "Copy Current Trial";
+TrialList.Last.Name = "Somma";
+//TrialList.Current = "Somma";
+
+
+
+Store.StringAt.BeamNameStart = "2_";
+TrialList.Current =  Store.StringAt.Trial2Name;
+Store.At.Trial2Copy = TrialList.Current.Address;
+Script.ExecuteNow =" /usr/local/adacnew/PinnacleSiteData/Scripts/SumTrials/copyOneTrial.script";
+
+IF.Store.StringAt.Trial3Name.STRINGNOTEQUALTO.#"#---".THEN={
+Store.StringAt.BeamNameStart = "3_";
+TrialList.Current =  Store.StringAt.Trial3Name;
+Store.At.Trial2Copy = TrialList.Current.Address;
+};
+IF.Store.StringAt.Trial3Name.STRINGNOTEQUALTO.#"#---".THEN.Script.ExecuteNow=" /usr/local/adacnew/PinnacleSiteData/Scripts/SumTrials/copyOneTrial.script";
+
+IF.Store.StringAt.Trial4Name.STRINGNOTEQUALTO.#"#---".THEN={
+Store.StringAt.BeamNameStart = "4_";
+TrialList.Current =  Store.StringAt.Trial4Name;
+Store.At.Trial2Copy = TrialList.Current.Address;
+};
+IF.Store.StringAt.Trial4Name.STRINGNOTEQUALTO.#"#---".THEN.Script.ExecuteNow=" /usr/local/adacnew/PinnacleSiteData/Scripts/SumTrials/copyOneTrial.script";
+
+TrialList.Current = "Somma";
+
+WaitMessageOff = "";
+

@@ -1,0 +1,19 @@
+
+ColorList.NextCurrent = TrialList.#"Somma".PrescriptionList.Last.Color;
+
+
+Store.StringAt.PrescName = Store.At.Trial2Copy.PrescriptionList.Current.Name;
+Store.StringAt.DupiPrescName = Store.At.Trial2Copy.PrescriptionList.Current.Name;
+Store.At.DupiPrescName.AppendString = "_2";
+
+//controlla se c'è duplicato
+Store.StringAt.test = "IF.TrialList.Somma.PrescriptionList.Current.Name.STRINGEQUALTO.Store.At.Trial2Copy.PrescriptionList.Current.Name.THEN.Store.StringAt.PrescName=Store.StringAt.DupiPrescName";
+TrialList.#"Somma".PrescriptionList.ChildrenEachCurrent.#"@".Store.At.test.Execute = "";
+
+
+TrialList.#"Somma".PrescriptionList.Copy = Store.At.Trial2Copy.PrescriptionList.Current.Address;
+
+TrialList.#"Somma".PrescriptionList.Last.Name = Store.StringAt.PrescName;
+TrialList.#"Somma".PrescriptionList.Last.Color = ColorList.Current.Name;
+TrialList.#"Somma".PrescriptionList.Last.MakeCurrent = 1;
+

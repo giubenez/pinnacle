@@ -1,0 +1,17 @@
+
+//ciclando su Store.At.Trial2Copy.BeamList.@
+
+TrialList.#"Somma".BeamList.#"trash".PrescriptionName = Store.At.Trial2Copy.BeamList.Current.PrescriptionName;
+Store.StringAt.BeamName = Store.At.Trial2Copy.BeamList.Current.Name;
+Store.StringAt.DupiBeamName = Store.At.Trial2Copy.BeamList.Current.Name;
+Store.At.DupiBeamName.AppendString = "_2";
+
+//controlla se nome duplicato
+Store.StringAt.test = "IF.TrialList.Somma.BeamList.Current.Name.STRINGEQUALTO.Store.At.Trial2Copy.BeamList.Current.Name.THEN.Store.StringAt.BeamName=Store.StringAt.DupiBeamName";
+TrialList.#"Somma".BeamList.ChildrenEachCurrent.#"@".Store.At.test.Execute = "";
+
+TrialList.#"Somma".BeamList.Copy = Store.At.Trial2Copy.BeamList.Current.Address;
+TrialList.#"Somma".BeamList.Last.Name = Store.At.BeamName.Value;
+TrialList.#"Somma".BeamList.Last.Weight =  Store.At.Trial2Copy.BeamList.Current.Weight;
+TrialList.#"Somma".BeamList.Last.WeightLocked = 1;
+

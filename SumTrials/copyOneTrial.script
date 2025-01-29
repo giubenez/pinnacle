@@ -1,0 +1,25 @@
+TrialList.Current = "Somma";
+
+//rinomina le prescrizioni con stesso nome prima di copiarlo così da mantenere l'associazione ai campi
+TrialList.Current.PrescriptionList.ChildrenEachCurrent.#"@".Script.ExecuteNow="/usr/local/adacnew/PinnacleSiteData/Scripts/SumTrials/renamePrescDuplicates.script";
+
+//copia lista prescrizioni di Trial2Copy e rinomina se necessario
+Store.At.Trial2Copy.PrescriptionList.ChildrenEachCurrent.#"@".Script.ExecuteNow="/usr/local/adacnew/PinnacleSiteData/Scripts/SumTrials/copyOnePresc.script";
+
+
+
+ColorList.NextCurrent = TrialList.#"Somma".BeamList.Last.Color;
+TrialList.#"Somma".BeamList.CreateChild = "";
+TrialList.#"Somma".BeamList.Last.Name = "trash"; //serve solo per non rompere le balle sui pesi
+TrialList.#"Somma".BeamList.Last.WeightLocked = 0;
+
+
+
+//copia lista di beam di Trial2Copy e rinomina se necessario
+Store.At.Trial2Copy.BeamList.ChildrenEachCurrent.#"@".Script.ExecuteNow =" /usr/local/adacnew/PinnacleSiteData/Scripts/SumTrials/copyOneBeam.script";
+
+TrialList.#"Somma".BeamList.#"trash".Destroy ="";
+
+
+
+IF.Store.At.Trial2Copy.PrescriptionList.Current.Name.STRINGEQUALTO.Store.StringAt.Presc2Name.THEN.Store.At.Trial2Copy.PrescriptionList.Current.Name = Store.StringAt.InitName;

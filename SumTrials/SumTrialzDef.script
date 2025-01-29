@@ -1,0 +1,18 @@
+/**************************************************************
+***               SumTrialzDef.Script                       ***
+***                  Giulio Benetti                         ***
+***            giulio.benetti@gmail.com                     ***
+***                                                         ***
+**************************************************************/
+
+
+//InfoMessage="Def Caricati";
+
+Store.StringAt.Trial1Name = TrialList.#"#0".Name;
+Store.StringAt.Trial2Name = TrialList.#"#1".Name;
+Store.StringAt.Trial3Name = "---";
+Store.StringAt.Trial4Name = "---";
+
+
+Store.FloatAt.AvviatoTr=1;
+Script.ExecuteNow = " /usr/local/adacnew/PinnacleSiteData/Scripts/SumTrials/SumTrialz.script";
