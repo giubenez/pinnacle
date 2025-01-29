@@ -1,0 +1,175 @@
+//Move to Eval panel
+WindowList .CTSim .PanelList .#"#5" .GotoPanel = "FunctionLayoutIcon5";
+
+//Set normalization mode
+IsodoseControl .NormalizationMode = "Absolute";
+//TrialList .Children .MaxDosePointDisplayOn = 0;
+
+//Remove old lines
+IsodoseControl .LineList .DestroyAllChildren = "";
+
+//Prescription Dose
+Store.FloatAt.IsodoseLinePrescribed = Store.FloatAt.cGyFx;
+Store.FloatAt.IsodoseLinePrescribed2 = 0;
+IF.Store.FloatAt.secDose.EQUALTO.#"1".THEN.Store.FloatAt.IsodoseLinePrescribed2=Store.FloatAt.cGyFx2;
+
+
+IF.Store.FloatAt.cGyFx2.Value.GREATERTHAN.Store.FloatAt.cGyFx.THEN.InfoMessage = "A!";
+IF.Store.FloatAt.cGyFx2.Value.GREATERTHAN.Store.FloatAt.cGyFx.THEN.InfoMessage = Store.FloatAt.IsodoseLinePrescribed2;
+IF.Store.FloatAt.cGyFx2.Value.GREATERTHAN.Store.FloatAt.cGyFx.THEN.Store.FloatAt.IsodoseLinePrescribed = Store.FloatAt.cGyFx2;
+IF.Store.FloatAt.cGyFx2.Value.GREATERTHAN.Store.FloatAt.cGyFx.THEN.Store.FloatAt.IsodoseLinePrescribed2 = Store.FloatAt.cGyFx;
+
+
+Store.At.IsodoseLinePrescribed.Multiply = Store.FloatAt.NumFx;
+Store.At.IsodoseLinePrescribed2.Multiply = Store.FloatAt.NumFx;
+
+//Create value variable
+Store.FreeAt.IsoValue = "";
+
+///////NEW ISODOSE LINES////////
+
+Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed;
+Store.At.IsoValue.Multiply = 1.10;
+Store.At.IsoValue.Nint = "";
+IsodoseControl .LineList .CreateChild = "Add a new isodose line";
+IsodoseControl .LineList .Last .IsoValue = Store.FloatAt.IsoValue;
+IsodoseControl .LineList .Last = {
+    Color = "yellowgreen";
+    LineWidthString = "Medium";
+    Display2dOn = 1;
+    Display3dMode = "Off";
+    };
+
+Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed;
+Store.At.IsoValue.Multiply = 1.05;
+Store.At.IsoValue.Nint = "";
+IsodoseControl .LineList .CreateChild = "Add a new isodose line";
+IsodoseControl .LineList .Last .IsoValue = Store.FloatAt.IsoValue;
+IsodoseControl .LineList .Last = {
+    Color = "greyscale";
+    LineWidthString = "Medium";
+    Display2dOn = 1;
+    Display3dMode = "Off";
+    };
+
+Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed;
+Store.At.IsoValue.Nint = "";
+IsodoseControl .LineList .CreateChild = "Add a new isodose line";
+IsodoseControl .LineList .Last .IsoValue = Store.FloatAt.IsoValue;
+IsodoseControl .LineList .Last = {
+    Color = "red";
+    LineWidthString = "Medium";
+    Display2dOn = 1;
+    Display3dMode = "Off";
+    };
+
+Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed;
+Store.At.IsoValue.Multiply = 0.95;
+Store.At.IsoValue.Nint = "";
+IsodoseControl .LineList .CreateChild = "Add a new isodose line";
+IsodoseControl .LineList .Last .IsoValue = Store.FloatAt.IsoValue;
+IsodoseControl .LineList .Last = {
+    Color = "orange";
+    LineWidthString = "Thick";
+    Display2dOn = 1;
+    Display3dMode = "Off";
+    };
+
+
+Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed;
+Store.At.IsoValue.Multiply = 0.90;
+Store.At.IsoValue.Nint = "";
+IsodoseControl .LineList .CreateChild = "Add a new isodose line";
+IsodoseControl .LineList .Last .IsoValue = Store.FloatAt.IsoValue;
+IsodoseControl .LineList .Last = {
+    Color = "blue";
+    LineWidthString = "Medium";
+    Display2dOn = 1;
+    Display3dMode = "Off";
+    };
+
+
+Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed;
+Store.At.IsoValue.Multiply = 0.80;
+Store.At.IsoValue.Nint = "";
+IsodoseControl .LineList .CreateChild = "Add a new isodose line";
+IsodoseControl .LineList .Last .IsoValue = Store.FloatAt.IsoValue;
+IsodoseControl .LineList .Last = {
+    Color = "lightblue";
+    LineWidthString = "Medium";
+    Display2dOn = 1;
+    Display3dMode = "Off";
+    };
+
+
+Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed;
+Store.At.IsoValue.Multiply = 0.6;
+Store.At.IsoValue.Nint = "";
+IsodoseControl .LineList .CreateChild = "Add a new isodose line";
+IsodoseControl .LineList .Last .IsoValue = Store.FloatAt.IsoValue;
+IsodoseControl .LineList .Last = {
+    Color = "purple";
+    LineWidthString = "Medium";
+    Display2dOn = 1;
+    Display3dMode = "Off";
+    };
+
+Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed;
+Store.At.IsoValue.Multiply = .3;
+Store.At.IsoValue.Nint = "";
+IsodoseControl .LineList .CreateChild = "Add a new isodose line";
+IsodoseControl .LineList .Last .IsoValue = Store.FloatAt.IsoValue;
+IsodoseControl .LineList .Last = {
+    Color = "khaki";
+    LineWidthString = "Medium";
+    Display2dOn = 1;
+    Display3dMode = "Off";
+    };
+
+
+
+IF.Store.FloatAt.secDose.EQUALTO.#"1".THEN={
+    Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed2;
+    Store.At.IsoValue.Multiply = 1;
+    Store.At.IsoValue.Nint = "";
+    IsodoseControl .LineList .#"#4".IsoValue = Store.FloatAt.IsoValue;
+
+
+    Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed2;
+    Store.At.IsoValue.Multiply = .95;
+    Store.At.IsoValue.Nint = "";
+    IsodoseControl .LineList .#"#5".IsoValue = Store.FloatAt.IsoValue;
+    IsodoseControl .LineList .#"#5" = {
+        Color = "lightblue";
+        LineWidthString = "Thick";
+        Display2dOn = 1;
+        Display3dMode = "Off";
+        };
+    };
+
+TrialList .Current .MaxDosePointDisplayOn = 1;
+TrialList .Children .MaxDosePoint .Color = "inverse_grey";
+
+Store.FloatAt.IsoValue = Store.FloatAt.IsodoseLinePrescribed;
+Store.At.IsoValue.Multiply = 0.15;
+
+
+Store.FloatAt.Cinquecento=500;
+IF.Store.FloatAt.IsoValue.GREATERTHAN.Store.FloatAt.Cinquecento.THEN.Store.FloatAt.IsoValue=Store.FloatAt.Cinquecento;
+
+
+IsodoseControl .LineList .CreateChild = "Add a new isodose line";
+IsodoseControl .LineList .Last .IsoValue = Store.FloatAt.IsoValue;
+IsodoseControl .LineList .Last = {
+    Color = "lavender";
+    LineWidthString = "Medium";
+    Display2dOn = 1;
+    Display3dMode = "Off";
+    };
+
+
+
+
+//Sort isodose lines    
+IsodoseControl .LineList .SortBy .D .IsoValue = "Sort";
+ 

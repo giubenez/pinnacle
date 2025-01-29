@@ -1,0 +1,65 @@
+Store.StringAt.CreateRepereScript = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/giveRepereScript.sh";
+
+// Store.StringAt.ReperePos contiene LRPAC
+
+
+
+//Controlla POI 
+
+IF.PoiList.HasNoElements.THEN.CreateNewPOI="";
+Store.At.Point2Use= PoiList.Current.Address;
+IF.Store.At.ISOCTRef.Name.STRINGEQUALTO.Store.StringAt.ISOCT.THEN.Store.At.Point2Use=Store.At.ISOCTRef.Address;
+
+
+//Controlla External
+Store.FloatAt.Fallo = 0;
+
+IF.Store.StringAt.ReperePos.STRINGEQUALTO.#"#C".THEN={
+IF.RoiList.ContainsObject.#"CouchSurface".THEN.Store.StringAt.Trash.ELSE.InfoMessage = "CouchSurface must be present in RoiList!";
+IF.RoiList.ContainsObject.#"CouchSurface".THEN.Store.FloatAt.Fallo = 1;
+};
+
+IF.Store.StringAt.ReperePos.STRINGNOTEQUALTO.#"#C".THEN={
+//Store.StringAt.ExternalName
+//IF.Store.At.ExternalRef.Name.STRINGEQUALTO.#"#External".THEN.Store.StringAt.Trash.ELSE.InfoMessage = "External must be selected and named correctly";
+//IF.Store.At.ExternalRef.Name.STRINGEQUALTO.#"#External".THEN.Store.FloatAt.Fallo = 1;
+IF.Store.At.ExternalRef.Name.STRINGEQUALTO.Store.StringAt.ExternalName.THEN.Store.StringAt.Trash.ELSE.InfoMessage = "External must be selected and named correctly";
+IF.Store.At.ExternalRef.Name.STRINGEQUALTO.Store.StringAt.ExternalName.THEN.Store.FloatAt.Fallo = 1;
+IF.Store.At.ISOCTRef.Name.STRINGEQUALTO.Store.StringAt.ISOCT.THEN.Store.StringAt.Trash.ELSE.InfoMessage = "The ISOCT has not been selected!";
+IF.Store.At.ISOCTRef.Name.STRINGEQUALTO.Store.StringAt.ISOCT.THEN.Store.StringAt.Trash.ELSE.Store.FloatAt.Fallo = 0;
+};
+
+IF.Store.FloatAt.Fallo.THEN={
+ExportRoi = "";
+Store.StringAt.CreateRepereCommand = Store.StringAt.CreateRepereScript;
+
+Store.At.CreateRepereCommand.AppendString  = Store.At.Point2Use.XCoord;
+Store.At.CreateRepereCommand.AppendString  = Store.At.Point2Use.YCoord;
+Store.At.CreateRepereCommand.AppendString  = Store.At.Point2Use.ZCoord;
+Store.At.CreateRepereCommand.AppendString  = " ";
+Store.At.CreateRepereCommand.AppendString  = Store.StringAt.ReperePos;
+Store.At.CreateRepereCommand.AppendString  = " ";
+Store.At.CreateRepereCommand.AppendString  = Store.At.ExternalRef.Name;
+
+
+
+SpawnCommand = Store.StringAt.CreateRepereCommand;
+
+
+IF.Store.StringAt.ReperePos.STRINGEQUALTO.#"#C".THEN.Script.ExecuteNow = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/temp/CouchRemoval.script";
+IF.Store.StringAt.ReperePos.STRINGNOTEQUALTO.#"#C".THEN.Script.ExecuteNow = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/temp/newRepere.script";
+
+};
+
+
+
+/*
+
+
+InfoMessage = Store.StringAt.CreateRepereCommand;
+
+
+
+*/
+
+

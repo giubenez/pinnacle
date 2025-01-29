@@ -1,0 +1,60 @@
+IF .TrialList .Current .BeamList .#"*" .HasRelyOnObject .THEN .WindowList .NoBeamDelete .Create .ELSE .TrialList .Current .BeamList .DestroyAllChildren = "";
+
+// TrialList .Current .RecomputeIsocenterList = "";
+
+MachineList .Current = Store.StringAt.Machine;
+
+// Gstart must be greater than Gstop
+
+IF.Store.FloatAt.GStop.GREATERTHAN.Store.FloatAt.GStart.THEN={
+	Store.FloatAt.GStartTmp = Store.FloatAt.GStart;
+	Store.FloatAt.GStart = Store.FloatAt.GStop;
+	Store.FloatAt.GStop = Store.FloatAt.GStartTmp;	
+};
+
+CreateNewBeam = "";
+TrialList .Current .BeamList .Current .Name = "ARC_CCW1";
+TrialList .Current .BeamList .Current .FieldID = "1PI";
+TrialList .Current .BeamList .Current .Machine = Store.StringAt.Machine;
+TrialList .Current .BeamList .Current .MachineEnergyName = Store.StringAt.Energy;
+TrialList .Current .BeamList .Current .Machine .PhotonEnergyList .Current = Store.StringAt.Energy;
+TrialList .Current .BeamList .Current .Machine .ElectronEnergyList .Current = Store.StringAt.Energy;
+TrialList .Current .BeamList .Current .Machine .StereoEnergyList .Current = Store.StringAt.Energy;
+TrialList .Current .BeamList .Current .SetBeamType = "Dynamic Arc";
+TrialList .Current .BeamList .Current .Isocenter = Store.StringAt.Isocenter;
+TrialList .Current .BeamList .Current .Gantry = Store.FloatAt.GStart.Value;
+TrialList .Current .BeamList .Current .GantryStop = Store.FloatAt.GStop.Value;
+TrialList .Current .BeamList .Current .GantryIsCCW = "1";
+TrialList .Current .BeamList .Current .Collimator = Store.FloatAt.CollAng.Value;
+TrialList .Current .BeamList. Current .DoseEngine .TypeName = "CC Convolution";
+
+//TrialList .Current .BeamList .Current .DisplayLaserMotion = "Patient";
+
+
+TrialList .Current .BeamList .Last .CopyBeam = "Copy Last Beam";
+TrialList .Current .BeamList .Current .Name= "ARC_CW1";
+TrialList .Current .BeamList .Current .FieldID = "2PI";
+TrialList .Current .BeamList .Current .GantryIsCCW = "0";
+TrialList .Current .BeamList .Current .FieldID = "2PI";
+TrialList .Current .BeamList .Current .Weight = "50.00 %";
+Store.FloatAt.CollAngNeg =  Store.FloatAt.CollAng;
+Store.At.CollAngNeg.Negate = "";
+TrialList .Current .BeamList .Current .Collimator = Store.FloatAt.CollAngNeg.Value;
+Store.FreeAt.CollAngNeg = "";
+
+// PRESCRIPTION
+
+/*
+
+
+TrialList .Current .PrescriptionList .#"#0" .MakeCurrent = "";
+
+
+
+TrialList .Current .PrescriptionList .Current .PrescriptionDose = "266";
+TrialList .Current .PrescriptionList .Current .NumberOfFractions = "15";
+
+TrialList .Current .PrescriptionList .#"#0" .Name = "266x15";
+
+TrialList .Current .BeamList .Current .DisplayLaserMotion = "Patient";
+*/

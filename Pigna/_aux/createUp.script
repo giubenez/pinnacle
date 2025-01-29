@@ -1,0 +1,58 @@
+RoiList .#"*" .ResetRoiExpandState = "";
+
+
+Store.StringAt.ringName = "UP_";
+Store.At.ringName.AppendString = Store.StringAt.TempPTV;
+
+	
+RoiList.Current = Store.StringAt.TempPTV;
+RoiList.Current .RoiExpandState = "Source";
+
+
+RoiList.ChildrenEachCurrent.#"@".IF.RoiList.Current.Name.STRINGEQUALTO.Store.StringAt.ringName.THEN.RoiList.Current.Destroy = 1;
+
+
+RoiExpandControl.UseConstantPadding = "0";
+RoiExpandControl.NegXPadding = 3;
+RoiExpandControl.PosXPadding = 3;
+RoiExpandControl.NegYPadding = 3;
+RoiExpandControl.PosYPadding = 3;
+RoiExpandControl.NegZPadding = 0;
+RoiExpandControl.PosZPadding = 0;
+RoiExpandControl.CreateNewTarget = "1";
+RoiExpandControl.TargetRoiName = "temporaryROIXY";
+RoiExpandControl.Expand = "1";
+RoiExpandControl.DoExpand = "";
+
+
+
+RoiExpandControl.UseConstantPadding = "0";
+RoiExpandControl.NegXPadding = 0;
+RoiExpandControl.PosXPadding = 0;
+RoiExpandControl.NegYPadding = 0;
+RoiExpandControl.PosYPadding = 0;
+RoiExpandControl.NegZPadding = 0.1;
+RoiExpandControl.PosZPadding = 0;
+RoiExpandControl.CreateNewTarget = "1";
+RoiExpandControl.TargetRoiName = "temporaryROIZ";
+RoiExpandControl.Expand = "1";
+RoiExpandControl.DoExpand = "";
+
+
+
+
+RoiList .#"*" .ResetRoiExpandState = "";
+
+RoiList.#"temporaryROIZ".RoiExpandState = "Source";
+RoiList.#"temporaryROIXY".RoiExpandState = "Avoid Interior";
+
+RoiExpandControl.UseConstantPadding = "1";
+RoiExpandControl.ConstantPadding = 0;
+RoiExpandControl.CreateNewTarget = "1";
+RoiExpandControl.TargetRoiName = Store.StringAt.ringName;
+RoiExpandControl.Expand = "1";
+RoiExpandControl.DoExpand = "";
+
+
+RoiList.#"temporaryROIZ".Destroy = 1;
+RoiList.#"temporaryROIXY".Destroy = 1;

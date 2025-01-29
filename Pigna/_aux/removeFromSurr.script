@@ -1,0 +1,2 @@
+RoiList.Current = Store.At.RemoveFromSurr.Current.Value;
+RoiList.Current.RoiExpandState = "Avoid Interior";

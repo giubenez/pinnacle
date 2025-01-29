@@ -1,0 +1,28 @@
+RoiList .#"*" .ResetRoiExpandState = "";
+
+Store.StringAt.ringName = "ring";
+Store.At.ringName.AppendString = Store.StringAt.TempPTV;
+
+RoiList.Current = Store.StringAt.TempPTV;
+RoiList.Current.RoiExpandState = "Source";
+Store.StringAt.Color2Use = RoiList.Current.Color;
+
+RoiList.ChildrenEachCurrent.#"@".IF.RoiList.Current.Name.STRINGEQUALTO.Store.StringAt.ringName.THEN.RoiList.Current.Destroy = 1;
+
+	
+RoiList.Current = Store.StringAt.TempPTV;
+RoiList .Current .RoiExpandState = "Source";
+RoiExpandControl .UseConstantPadding = "0";
+RoiExpandControl .NegXPadding = Store.FloatAt.PadIP.Value;
+RoiExpandControl .PosXPadding = Store.FloatAt.PadIP.Value;
+RoiExpandControl .NegYPadding = Store.FloatAt.PadIP.Value;
+RoiExpandControl .PosYPadding = Store.FloatAt.PadIP.Value;
+RoiExpandControl .NegZPadding = Store.FloatAt.PadOP.Value;
+RoiExpandControl .PosZPadding = Store.FloatAt.PadOP.Value;
+RoiExpandControl .CreateNewTarget = "1";
+RoiExpandControl .TargetRoiName = Store.StringAt.ringName;
+RoiExpandControl .DoRingExpansion = "";
+
+
+RoiList.Last.Color = Store.StringAt.Color2Use;
+

@@ -1,0 +1,3 @@
+AtlasSegmentationManager .AtlasName = "Skin Atlas Fisica";
+AtlasSegmentationManager .StartAtlasSegmentation = "";
+WindowList .AutoSegLaunch .Unrealize = "";

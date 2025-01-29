@@ -1,0 +1,42 @@
+RoiList .#"*" .ResetRoiExpandState = "";
+
+Store.StringAt.ringName = Store.StringAt.TempPTV;
+Store.At.ringName.AppendString = "_p";
+
+IF.Store.StringAt.ringName.STRINGEQUALTO.#"#External_p".THEN.Store.StringAt.ringName="surround";
+IF.Store.StringAt.ringName.STRINGEQUALTO.#"#EXTERNAL_p".THEN.Store.StringAt.ringName="surround";
+
+RoiList.Current = Store.StringAt.TempPTV;
+RoiList.Current.RoiExpandState = "Source";
+Store.StringAt.Color2Use = RoiList.Current.Color;
+
+	
+	
+RoiList.ChildrenEachCurrent.#"@".IF.RoiList.Current.Name.STRINGEQUALTO.Store.StringAt.ringName.THEN.RoiList.Current.Destroy = 1;
+
+//RoiList.ChildrenEachCurrent.#"@".IF.RoiList.Current.Name.STRINGEQUALTO.Store.StringAt.ringName.THEN.InfoMessage="contiene";
+//IF.RoiList.ContainsObject. Store.StringAt.ringName. THEN.InfoMessage="contiene";
+//IF.RoiList.ContainsObject.Store.StringAt.ringName.THEN.RoiList.Current = Store.StringAt.ringName;
+
+
+//Store.Save = "/home/gbenetti/Desktop/store.dat";
+
+Store.At.RemoveFromSurr.ChildrenEachCurrent.#"@".IF.Store.At.RemoveFromSurr.Current.Value.STRINGEQUALTO.Store.StringAt.ringName.THEN.Store.At.RemoveFromSurr.Current.Destroy = 1;
+
+Store.At.RemoveFromSurr.ChildrenEachCurrent.#"@".Script.ExecuteNow = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/removeFromSurr.script";
+
+
+RoiExpandControl.UseConstantPadding = "1";
+RoiExpandControl.ConstantPadding = "0";
+//RoiExpandControl.ConstantPadding = Store.FloatAt.Pad.Value;
+RoiExpandControl.CreateNewTarget = "1";
+RoiExpandControl.TargetRoiName = Store.StringAt.ringName;
+RoiExpandControl.Expand = "1";
+RoiExpandControl.DoExpand = "";
+
+Store.FreeAt.RemoveFromSurr;
+Store.At.RemoveFromSurr=ObjectList{ChildClassName="SimpleString";};
+
+RoiList.Last.Color = Store.StringAt.Color2Use;
+
+

@@ -1,0 +1,14 @@
+Store.StringAt.PrescName = Store.FloatAt.cGyFx.Value;
+Store.At.PrescName.AppendString = " x";
+Store.At.PrescName.AppendString = Store.FloatAt.NumFx.Value;
+
+TrialList .Current .PrescriptionList .#"#0" .MakeCurrent = "";
+TrialList .Current .PrescriptionList .#"#0" .Name = Store.StringAt.PrescName;
+TrialList .Current .PrescriptionList .Current .PrescriptionDose = Store.FloatAt.cGyFx;
+TrialList .Current .PrescriptionList .Current .NormalizationMethod = "ROI Mean";
+TrialList .Current .PrescriptionList .Current .PrescriptionRoi = Store.StringAt.PrescROIName;
+TrialList .Current .PrescriptionList .Current .NumberOfFractions = Store.FloatAt.NumFx.Value;
+
+/*
+
+*/

@@ -1,0 +1,10 @@
+RoiList.Elekta_iBeamEvo.Destroy = 1;
+RoiList.CouchSurface.Destroy = 1;
+RoiList.CouchInterior.Destroy = 1;
+RoiList.CouchAir.Destroy = 1;
+
+IF .RoiTemplateLib .GroupList .#"!HasElements" .THEN .RoiTemplateLib .LoadFullLib = "";
+RoiTemplateLib .LoadByName = "Elekta_iBeamEvo";
+RoiList .Last .MakeCurrent = "Elekta_iBeamEvo";
+IF .RoiList .Current .SurfaceMesh .IsValid .THEN .ControlPanel .Icon .#"Surface Mesh Translate" .MakeCurrent = "Elekta_iBeamEvo";
+IF .WindowList .RoiLoadFromTemplateLib .#"!IsPinned" .THEN .WindowList .RoiLoadFromTemplateLib .Unrealize = "Elekta_iBeamEvo";

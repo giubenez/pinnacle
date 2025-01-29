@@ -1,0 +1,1514 @@
+/**************************************************************
+***                 PIGNAmain.Script                        ***
+***                  Giulio Benetti                         ***
+***            giulio.benetti@gmail.com                     ***
+***                                                         ***
+**************************************************************/
+
+
+//////////////////////////////////////////////////////////////
+//                      LOAD DEF                            //
+//////////////////////////////////////////////////////////////
+
+IF.Store.FloatAt.Avviato.THEN. Store.StringAt.Trash. ELSE. Script.ExecuteNow = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/defaultValues.script"; 
+
+
+//////////////////////////////////////////////////////////////
+//                      REFERENCES                          //
+//////////////////////////////////////////////////////////////
+
+// every time the script starts all the referenced must be freed and recreated to avoid incosistencies.
+Store.StringAt.TmpCommand = "Store.At.ExternalRef = RoiList.Current.Address";
+Store.StringAt.TmpCommandCol = "Store.StringAt.ExternalColor = RoiList.Current.Color";
+Store.RemoveAt.ExternalRef = "";
+RoiList.ChildrenEachCurrent.#"@".IF.RoiList.Current.Name.STRINGEQUALTO.Store.StringAt.ExternalName.THEN.Store.At.TmpCommand.Execute = "";
+Store.FreeAt.ExternalColor= "";
+RoiList.ChildrenEachCurrent.#"@".IF.RoiList.Current.Name.STRINGEQUALTO.Store.StringAt.ExternalName.THEN.Store.At.TmpCommandCol.Execute = "";
+
+
+
+
+Store.StringAt.TmpCommand = "Store.At.ISOCTRef=PoiList.Current.Address";
+Store.StringAt.TmpCommandCol = "Store.StringAt.ISOCTColor = PoiList.Current.Color";
+Store.RemoveAt.ISOCTRef = "";
+PoiList.ChildrenEachCurrent.#"@".IF.PoiList.Current.Name.STRINGEQUALTO.Store.StringAt.ISOCT.THEN.Store.At.TmpCommand.Execute = "";
+Store.FreeAt.ISOCTColor= "";
+PoiList.ChildrenEachCurrent.#"@".IF.PoiList.Current.Name.STRINGEQUALTO.Store.StringAt.ISOCT.THEN.Store.At.TmpCommandCol.Execute = "";
+
+
+Store.StringAt.TmpCommand = "Store.At.IsocenterRef=PoiList.Current.Address";
+Store.StringAt.TmpCommandCol = "Store.StringAt.IsocenterColor = PoiList.Current.Color";
+Store.RemoveAt.IsocenterRef = "";
+PoiList.ChildrenEachCurrent.#"@".IF.PoiList.Current.Name.STRINGEQUALTO.Store.StringAt.Isocenter.THEN.Store.At.TmpCommand.Execute = "";
+Store.FreeAt.IsocenterColor= "";
+PoiList.ChildrenEachCurrent.#"@".IF.PoiList.Current.Name.STRINGEQUALTO.Store.StringAt.Isocenter.THEN.Store.At.TmpCommandCol.Execute = "";
+
+
+
+//IF.Store.StringAt.ExternalName.STRINGEQUALTO.Store.At.ExternalRef.Name.THEN.Store.StringAt.Trash.ELSE.InfoMessage = "Non settato";
+//IF.Store.StringAt.ExternalName.STRINGEQUALTO.Store.At.ExternalRef.Name.THEN.InfoMessage = "Esiste e sono uguali";
+
+//////////////////////////////////////////////////////////////
+//                      VARIABLES                           //
+//////////////////////////////////////////////////////////////
+
+Store.StringAt.PignaAddr = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/PIGNAmain.script";
+Store.StringAt.FitNamesScript = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/autoFitNames.sh";
+
+Store .At .CTkVList = ObjectList{ChildClassName = "SimpleString";};
+Store .At .CTkVList .CreateChild = "";
+Store .At .CTkVList .Last .Value = "CRANIO_2021";
+Store .At .CTkVList .CreateChild = "";
+Store .At .CTkVList .Last .Value = "BODY1mm2021";
+Store .At .CTkVList .CreateChild = "";
+Store .At .CTkVList .Last .Value = "RT_120kV2021";
+Store .At .CTkVList .CreateChild = "";
+Store .At .CTkVList .Last .Value = "RT_140kV2021";
+
+
+ExportFileList.Directory = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/temp/";
+RoiExportFile = "ROI.roi";
+
+
+// STORE.AT.PLAN
+// Name of the template script to load
+// This variable is created in the Main script
+// and is used by MachineSelection to determine the 
+// script to execute
+
+// STORE.AT.PATH
+// Path of the template script to load
+// This variable is created in this script
+// and is used by MachineSelection to determine the 
+// script to execute
+
+// STORE.AT.MACHINE
+// Name of the Machine
+// This variable is created in this script
+// and is used in the Plan script
+
+// STORE.AT.ENERGY
+// Name of the Machine
+// This variable is created in this script
+// and is used in the Plan script
+
+// STORE.AT.ISOCENTER
+// Name of the Machine
+// This variable is created in this script
+// and is used in the Plan script
+
+
+
+//////////////////////////////////////////////////////////////
+//                        WINDOW                            //
+//////////////////////////////////////////////////////////////
+
+Store.At.PignaMW.Unrealize = "Dismiss";
+Store.At.PignaMW = "Dismiss";
+
+// Create the window
+Store.At.PignaMW = GeoFORM {
+                   Name = "PignaWindow";
+                 };
+
+
+//////////////////////////////////////////////////////////////
+//                      LEVELS                              //
+//////////////////////////////////////////////////////////////
+
+
+Store.At.PignaMW.WidgetList.GeoWidget = {
+      WidgetClass = "Form";
+      Name = "TopLevel";
+      Label = "PIGNA v4.2";
+      Width = 580;
+      Height = 460; 
+      X = 1300;
+      Y = 200;
+    };
+
+
+	
+//////////////////////////////////////////////////////////////
+//                      RENAME OAR                          //
+//////////////////////////////////////////////////////////////
+
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "ReameOrgansArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 400;
+     Height = 20;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "FORM";
+     AttachBottom = "--";
+    };
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "ReameOrgansArea";
+      X = 10;
+      Y = 5;
+      Width = 100;
+      Height = 20;
+      Name = "Rename";
+    };
+
+
+	
+//////////////////////////////////////////////////////////////
+//                      Machine                             //
+//////////////////////////////////////////////////////////////
+   
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "MachineArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 300;
+     Height = 250;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "FORM";   
+     AttachBottom = "--";
+    };
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "MachineArea";
+      X = 10;
+      Y = 8;
+      Width = 200;
+      Height = 20;
+      Name = "Machine";
+    };
+
+
+// Dropdown List - Machine  
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "MachineArea";
+      Name = "MachineSelector";
+      X = 90;
+      Y = 0;
+      Width = 100;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "Store.StringAt.Machine";
+      QueryListKey = "MachineList.*.Name";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Machine";
+      AddAction = "";
+      ReplaceCurrentAction = "MachineList.Current";
+      ResetDependenciesWhenRealized = 1;
+    }; 
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "MachineArea";
+      Name = "EnergySelector";
+      X = 230;
+      Y = 0;
+      Width = 80;
+      Height = 20;
+      QueryValueKey = "Store.StringAt.Energy";
+      QueryListKey = "MachineList.Current.PhotonEnergyList.*.Name";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Energy";
+      ResetDependenciesWhenRealized = 1;
+    }; 
+
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "MachineArea";
+      Name = "kVSelector";
+      X = 350;
+      Y = 0;
+      Width = 110;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "TrialList.Current.CtToDensityName";
+      QueryListKey = "Store.At.CTkVList.*.Name";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.CTkV";
+      AddAction = "";
+      ReplaceCurrentAction = "TrialList.Current.CtToDensityName = Store.StringAt.CTkV";
+      AddAction = "";
+      ReplaceCurrentAction = "TrialList.Current.PatientRepresentation.CtToDensityTableAccepted=1";
+    }; 
+
+
+Store.StringAt.ColorKVP = "red";
+
+IF.VolumeList.Current.KVPForDisplay.EQUALTO.#"120".THEN={
+  IF.TrialList.Current.CtToDensityName.STRINGEQUALTO.Store.At.CTkVList.#"#0".Value.THEN.Store.StringAt.ColorKVP = "green";
+  IF.TrialList.Current.CtToDensityName.STRINGEQUALTO.Store.At.CTkVList.#"#1".Value.THEN.Store.StringAt.ColorKVP = "green";
+  IF.TrialList.Current.CtToDensityName.STRINGEQUALTO.Store.At.CTkVList.#"#2".Value.THEN.Store.StringAt.ColorKVP = "green";
+};
+
+IF.VolumeList.Current.KVPForDisplay.EQUALTO.#"140".THEN={
+IF.TrialList.Current.CtToDensityName.STRINGEQUALTO.Store.At.CTkVList.#"#3".Value.THEN.Store.StringAt.ColorKVP = "green";
+};
+
+IF.Store.StringAt.ColorKVP.STRINGEQUALTO.#"#red".THEN.WarningMessage = "Attenzione al CT Density table!";
+
+
+Store.StringAt.KVpikko = "<- ";
+Store.At.KVpikko.AppendString = VolumeList.Current.KVPForDisplay;
+Store.At.KVpikko.AppendString = " kV";
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "MachineArea";
+      X = 500;
+      Y = 8;
+      Width = 100;
+      Height = 20;
+      UseQueryForLabel = 1;
+      UseDefaultSize = 1;
+      QueryValueKey = "Store.StringAt.KVpikko";
+      QueryColorKey = "Store.StringAt.ColorKVP";
+    };
+
+
+
+//////////////////////////////////////////////////////////////
+//                      External                            //
+//////////////////////////////////////////////////////////////
+
+
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "ExternalArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 300;
+     Height = 250;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "MachineArea";   
+     AttachBottom = "--";
+    };
+
+
+   
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "ExternalArea";
+      X = 10;
+      Y = 5;
+      Width = 400;
+      Height = 20;
+      Name = "External";
+    };
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "ExternalArea";
+      Name = "ExternalSelector";
+      X = 90;
+      Y = 0;
+      Width = 150;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "Store.StringAt.ExternalName";
+      QueryListKey = "RoiList.*.Name";
+      QueryColorListKey = "RoiList.*.Color";
+      QueryColorKey = "Store.StringAt.ExternalColor";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.ExternalName";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+      ResetDependenciesWhenRealized = 1;
+    }; 
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ExternalArea";
+      Name = "MakeExt";
+      X = 280;
+      Y = 5;
+      Label = "Autocontour";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.ExternalName=EXTERNAL";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/autoseg_External.script";
+    };    
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ExternalArea";
+      Name = "RenOrgBtn";
+      X = 382;
+      Y = 5;
+      Width = 110;
+      Label = "Rename ROIs";
+      QueryColorKey = "Store.StringAt.ColorRename";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/RenameOARs.script";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.ColorRename = green";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.ExternalName=External";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+//////////////////////////////////////////////////////////////
+//                      ISOCT                                 //
+//////////////////////////////////////////////////////////////
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "ISOCTArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 300;
+     Height = 250;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "ExternalArea";   
+     AttachBottom = "--";
+    };
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "ISOCTArea";
+      AttachLeft = "Prompt";
+      X = 10;
+      Y = 22;
+      Width = 200;
+      Height = 20;
+      Name = "ISOCT";
+    };
+   
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "ISOCTArea";
+      Name = "IsoCTSelector";
+      X = 90;
+      Y = 0;
+      Width = 100;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryListKey = "PoiList.*.Name";
+      QueryColorListKey = "PoiList.*.Color";
+      QueryColorKey = "Store.StringAt.ISOCTColor";
+      QueryValueKey = "Store.StringAt.ISOCT";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.ISOCT";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+      ResetDependenciesWhenRealized = 1;
+    }; 
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "ISOCTArea";
+      Name = "xISOCT";
+      AttachLeft = "Prompt";
+      X = 240;
+      Y = 10;
+      Width = 60;
+      Height = 20;
+      UseQueryForLabel = 1;
+      UseDefaultSize = 1;
+      QueryValueKey = "Store.At.ISOCTRef.XCoord";
+      QueryColorKey = "greyscale";
+    };  
+	
+ 
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "ISOCTArea";
+      Name = "yISOCT";
+      AttachLeft = "Prompt";
+      X = 290;
+      Y = 10;
+      Width = 60;
+      Height = 20;
+      UseQueryForLabel = 1;
+      UseDefaultSize = 1;
+      QueryValueKey = "Store.At.ISOCTRef.YCoord";
+      QueryColorKey = "greyscale";
+    };  
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "ISOCTArea";
+      Name = "zISOCT";
+      AttachLeft = "Prompt";
+      X = 340;
+      Y = 10;
+      Width = 60;
+      Height = 20;
+      UseQueryForLabel = 1;
+      UseDefaultSize = 1;
+      QueryValueKey = "Store.At.ISOCTRef.ZCoord";
+      QueryColorKey = "greyscale";
+    };  
+	
+
+Store.StringAt.MakeLockISOCTGreen = "Store.StringAt.ColorLockISOCT = green";
+IF.Store.At.ISOCTRef.IsLocked.THEN.Store.At.MakeLockISOCTGreen.Execute.ELSE.Store.StringAt.ColorLockISOCT = "red";
+
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ISOCTArea";
+      Name = "ImportBtn";
+      X = 390;
+      Y = 5;
+      Width = 70;
+      Label = " Import";
+      AddAction = "";
+      ReplaceCurrentAction = "WindowList.Import.Create = DICOM...";
+    };    
+
+
+Store.StringAt.CreatePOI = "CreateNewPOI=\"\"";
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ISOCTArea";
+      Name = "CreateIsocenterBtn";
+      X = 460;
+      Y = 5;
+      Width = 95;
+      Label = " Create POI";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.CreatePOI.Execute=1";
+      AddAction = "";
+      ReplaceCurrentAction = "PoiList.Last.Name=ISOCT";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.ISOCT=ISOCT";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ISOCTArea";
+      Name = "RenameBtn";
+      X = 100;
+      Y = 35;
+      Width = 120;
+      Label = "Rename & Color";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ISOCTRef.Name=ISOCT";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ISOCTRef.Diameter = 3";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ISOCTRef.Color = orange";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ISOCTRef.IsLocked=1";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.ISOCT=ISOCT";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ISOCTArea";
+      Name = "LockBtn";
+      X = 220;
+      Y = 35;
+      Width = 60;
+      Label = "  Lock";
+      QueryColorKey = "Store.StringAt.ColorLockISOCT";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ISOCTRef.IsLocked=1";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ISOCTArea";
+      Name = "SetLaserBtn";
+      X = 280;
+      Y = 35;
+      Width = 200;
+      Label = "      Set Laser Localization";
+      QueryColorKey = "Store.StringAt.ColorLaser";
+      AddAction = "";
+      ReplaceCurrentAction = "TrialList.Current.LaserLocalizer.LaserCenter.XCoord = Store.At.ISOCTRef.CurrXCoord";
+      AddAction = "";
+      ReplaceCurrentAction = "TrialList.Current.LaserLocalizer.LaserCenter.YCoord = Store.At.ISOCTRef.CurrYCoord";
+      AddAction = "";
+      ReplaceCurrentAction = "TrialList.Current.LaserLocalizer.LaserCenter.ZCoord = Store.At.ISOCTRef.CurrZCoord";
+      AddAction = "";
+      ReplaceCurrentAction = "TrialList.Current.LaserLocalizer.DisplayAlways = 1";
+      ResetDependenciesWhenRealized = 1;
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+
+
+
+Store.StringAt.MakeLaserGreen = "Store.StringAt.ColorLaser = green";
+IF.TrialList.Current.LaserLocalizer.DisplayAlways.THEN.Store.At.MakeLaserGreen.Execute.ELSE.Store.StringAt.ColorLaser = "red";
+//      QueryColorKey = "Store.StringAt.ColorLaser";
+
+
+      
+      
+//////////////////////////////////////////////////////////////
+//                      Couch                               //
+//////////////////////////////////////////////////////////////
+   
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "couchArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 300;
+     Height = 250;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "ISOCTArea";   
+     AttachBottom = "--";
+    };
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "couchArea";
+      X = 10;
+      Y = 5;
+      Width = 400;
+      Height = 20;
+      Name = "Couch";
+    };
+	
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "couchArea";
+      Name = "AddCouchBtn";
+      X = 100;
+      Y = 0;
+      Label = "Add";
+      AddAction = "";
+      ReplaceCurrentAction = "WindowLevelList.Current=Lung";
+      AddAction = "";
+      ReplaceCurrentAction = "VolumeList.Current.LoadWindowLevelPreset=Lung";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/addCouchTemplate.script" ;
+    };    
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "couchArea";
+      Name = "ConvertCouchBtn";
+      X = 200;
+      Y = 0;
+      Label = "Convert";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/CreateCouch_ElektaiBeamEvo.Script.p3rtp";
+      AddAction = "";
+      ReplaceCurrentAction = "WindowLevelList.Current=Abdomen";
+      AddAction = "";
+      ReplaceCurrentAction = "VolumeList.Current.LoadWindowLevelPreset=Abdomen";
+    };    
+	
+Store.StringAt.MakeRLGreen = "Store.StringAt.ColorRL = green";
+IF.TrialList.Current.RemoveCouchFromScan.THEN.Store.At.MakeRLGreen.Execute.ELSE.Store.StringAt.ColorRL = "red";
+//      QueryColorKey = "Store.StringAt.ColorRL";
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "couchArea";
+      Name = "RLBtn";
+      X = 300;
+      Y = 0;
+      Label = "Set Red Line";
+      QueryColorKey = "Store.StringAt.ColorRL";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.ReperePos = C";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/giveRepereOrCouch.script";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+	
+//////////////////////////////////////////////////////////////
+//                      Protocol                               //
+//////////////////////////////////////////////////////////////
+      
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "ProtoArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 300;
+     Height = 250;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "couchArea";   
+     AttachBottom = "--";
+    };
+   
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "ProtoArea";
+      X = 10;
+      Y = 7;
+      Width = 400;
+      Height = 20;
+      Name = "Protocol";
+    };
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ProtoArea";
+      Name = "LoadProtBtn";
+      X = 100;
+      Y = 5;
+      Width = 70;
+      Label = "ReLoad";
+      AddAction = "";
+      ReplaceCurrentAction = "SpawnCommand = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/loadProtocols.sh";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/loadProtocols.script";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+	
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "ProtoArea";
+      Name = "ProtocolSelector";
+      X = 170;
+      Y = 0;
+      Width = 200;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "Store.StringAt.Protocol";
+      QueryListKey = "Store.At.ProtList.*.Name";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Protocol";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FreeAt.AvviatoFN=0";
+      ResetDependenciesWhenRealized = 1;
+    }; 
+
+
+ 
+Store.StringAt.space = " ";
+Store.StringAt.apex = "\"";
+
+Store.StringAt.AutoFitRoiScript = " /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/temp/";
+Store.At.AutoFitRoiScript.AppendString =  Store.StringAt.MyName;
+
+Store.StringAt.AutoFitRoiFirstScript = Store.StringAt.AutoFitRoiScript;
+
+Store.At.AutoFitRoiScript.AppendString =  "/autoFitNames.script";
+Store.At.AutoFitRoiFirstScript.AppendString = "/autoFitNamesFirst.script";
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ProtoArea";
+      Name = "FitROIBtn";
+      X = 420;
+      Y = 5;
+      Label = "  Fit Names";
+      Font = "Bold";
+      QueryColorKey = "blue";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.LastProtocol=Store.StringAt.Protocol";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.fitNamesCommand  = Store.StringAt.FitNamesScript";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.fitNamesCommand.AppendString  = Store.StringAt.space";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.fitNamesCommand.AppendString  = Store.StringAt.apex";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.fitNamesCommand.AppendString  = Store.StringAt.Protocol";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.fitNamesCommand.AppendString  = Store.StringAt.apex";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.fitNamesCommand.AppendString  = Store.StringAt.space";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.fitNamesCommand.AppendString  = Store.StringAt.MyName";
+      AddAction = "";
+      ReplaceCurrentAction = "SpawnCommand=Store.StringAt.fitNamesCommand";
+      AddAction = "";
+      ReplaceCurrentAction = "IF.Store.StringAt.LastProtocol.STRINGNOTEQUALTO.Store.StringAt.Protocol.THEN.Script.ExecuteNow=Store.StringAt.AutoFitRoiFirstScript";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.StringAt.AutoFitRoiScript";
+    };    
+	
+
+//////////////////////////////////////////////////////////////
+//                      Isocenter                               //
+//////////////////////////////////////////////////////////////
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "IsocenterArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 300;
+     Height = 250;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "ProtoArea";   
+     AttachBottom = "--";
+    };   
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "IsocenterArea";
+      X = 10;
+      Y = 5;
+      Width = 400;
+      Height = 20;
+      Name = "Isocenter";
+    };
+
+   
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "IsocenterArea";
+      Name = "IsocenterSelector";
+      X = 90;
+      Y = 0;
+      Width = 120;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "Store.StringAt.Isocenter";
+      QueryListKey = "PoiList.*.Name";
+      QueryColorListKey = "PoiList.*.Color";
+      QueryColorKey = "Store.StringAt.IsocenterColor";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Isocenter";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.Rounded = 0";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+
+    }; 
+
+
+
+Store.StringAt.CreateIsocenter = "CreateNewPOI=\"\"";
+IF.Store.At.ISOCTRef.Name.STRINGEQUALTO.#"#ISOCT".THEN.Store.StringAt.CreateIsocenter = "CopyCurrentPoi=\"\"";
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "IsocenterArea";
+      Name = "CreateIsocenterBtn";
+      X = 250;
+      Y = 5;
+      Label = "Create POI";
+      AddAction = "";
+      ReplaceCurrentAction = "PoiList.ISOCENTER.Destroy=\"\"";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.CreateIsocenter.Execute=1";
+      AddAction = "";
+      ReplaceCurrentAction = "PoiList.Last.Name=ISOCENTER";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Isocenter=ISOCENTER";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.Rounded = 0";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "IsocenterArea";
+      Name = "AutoplaceIsocenterBtn";
+      X = 350;
+      Y = 5;
+      Label = "Autoplace";
+      AddAction = "";
+      ReplaceCurrentAction = "WindowList.PoiAutoplace.Create";
+    };  
+
+IF.Store.StringAt.Isocenter.STRINGEQUALTO.Store.StringAt.ISOCT.THEN.Store.FloatAt.Rounded = 1;
+Store.StringAt.ColorRound = "red";
+IF.Store.FloatAt.Rounded.THEN.Store.StringAt.ColorRound = "green";
+
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "IsocenterArea";
+      Name = "RoundIsocenterBtn";
+      X = 450;
+      Y = 5;
+      Label = "Round 1cm ";
+
+      QueryColorKey = "Store.StringAt.ColorRound";
+      Width = 90;
+
+      AddAction = "";
+      ReplaceCurrentAction = "IF.Store.At.IsocenterRef.IsLocked.THEN.InfoMessage = Can't round a locked Isocenter! Is it the ISOCT?";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.TmpFloat = Store.At.IsocenterRef.CurrXCoord";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.TmpFloat.Subtract = Store.At.ISOCTRef.CurrXCoord";
+      //AddAction = "";
+      //ReplaceCurrentAction = "Store.At.TmpFloat.Multiply = 2";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.TmpFloat.Round = 1";
+      //AddAction = "";
+      //ReplaceCurrentAction = "Store.At.TmpFloat.Divide = 2";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.TmpFloat.Add = Store.At.ISOCTRef.CurrXCoord";
+      AddAction = "";
+      ReplaceCurrentAction = "IF.Store.At.IsocenterRef.IsLocked.THEN.Store.StringAt.Trash.ELSE.Store.At.IsocenterRef.CurrXCoord = Store.FloatAt.TmpFloat";
+
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.TmpFloat = Store.At.IsocenterRef.CurrYCoord";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.TmpFloat.Subtract = Store.At.ISOCTRef.CurrYCoord";
+      //AddAction = "";
+      //ReplaceCurrentAction = "Store.At.TmpFloat.Multiply = 2";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.TmpFloat.Round = 1";
+      AddAction = "";
+      //ReplaceCurrentAction = "Store.At.TmpFloat.Divide = 2";
+      //AddAction = "";
+      ReplaceCurrentAction = "Store.At.TmpFloat.Add = Store.At.ISOCTRef.CurrYCoord";
+      AddAction = "";
+      ReplaceCurrentAction = "IF.Store.At.IsocenterRef.IsLocked.THEN.Store.StringAt.Trash.ELSE.Store.At.IsocenterRef.CurrYCoord = Store.FloatAt.TmpFloat";
+
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.TmpFloat = Store.At.IsocenterRef.CurrZCoord";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.TmpFloat.Subtract = Store.At.ISOCTRef.CurrZCoord";
+      //AddAction = "";
+      //ReplaceCurrentAction = "Store.At.TmpFloat.Multiply = 2";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.TmpFloat.Round = 1";
+      //AddAction = "";
+      //ReplaceCurrentAction = "Store.At.TmpFloat.Divide = 2";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.TmpFloat.Add = Store.At.ISOCTRef.CurrZCoord";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.Rounded = 1";
+      AddAction = "";
+      ReplaceCurrentAction = "IF.Store.At.IsocenterRef.IsLocked.THEN.Store.StringAt.Trash.ELSE.Store.At.IsocenterRef.CurrZCoord = Store.FloatAt.TmpFloat";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+	
+	
+//////////////////////////////////////////////////////////////
+//                      IsocenterBeams                               //
+//////////////////////////////////////////////////////////////
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "BeamsArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 300;
+     Height = 250;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "IsocenterArea";   
+     AttachBottom = "--";
+    };   
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "BeamsArea";
+      X = 10;
+      Y = 7;
+      Width = 400;
+      Height = 20;
+      Name = "Beams";
+    };
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "BeamsArea";
+      X = 100;
+      Y = 7;
+      Width = 400;
+      Height = 20;
+      Name = "Gantry Ang";
+    };
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Text";
+      ParentName = "BeamsArea";
+      Name = "GStart";
+      AttachLeft = "Prompt";
+      X = 190;
+      Y = 0;
+      Width = 50;
+      Height = 20;
+      QueryValueKey = "Store.FloatAt.GStart.Value";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.GStart";
+    };  
+	
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "BeamsArea";
+      X = 240;
+      Y = 8;
+      Width = 400;
+      Height = 20;
+      Name = "->";
+    };
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Text";
+      ParentName = "BeamsArea";
+      Name = "GStop";
+      AttachLeft = "Prompt";
+      X = 260;
+      Y = 0;
+      Width = 50;
+      Height = 20;
+      QueryValueKey = "Store.FloatAt.GStop.Value";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.GStop";
+    };  
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "BeamsArea";
+      X = 320;
+      Y = 7;
+      Width = 150;
+      Height = 20;
+      Name = "Coll Ang";
+    };
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Text";
+      ParentName = "BeamsArea";
+      Name = "CollAng";
+      AttachLeft = "Prompt";
+      X = 390;
+      Y = 0;
+      Width = 50;
+      Height = 20;
+      QueryValueKey = "Store.FloatAt.CollAng.Value";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.CollAng";
+    };  
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "BeamsArea";
+      Name = "Create2ArcsBtn";
+      X = 450;
+      Y = 5;
+      Label = "Create2Arcs";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/create2beams.script";
+    };    
+	
+//////////////////////////////////////////////////////////////
+//                   Prescription                           //
+//////////////////////////////////////////////////////////////
+   
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "PrescArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 300;
+     Height = 250;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "BeamsArea";   
+     AttachBottom = "--";
+    };   
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "PrescArea";
+      X = 10;
+      Y = 20;
+      Width = 100;
+      Height = 20;
+      Name = "Prescription";
+    };
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Text";
+      ParentName = "PrescArea";
+      Name = "cGyFx";
+      AttachLeft = "Prompt";
+      X = 100;
+      Y = 0;
+      Width = 50;
+      Height = 20;
+      QueryValueKey = "Store.FloatAt.cGyFx.Value";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.cGyFx";
+    };  
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "PrescArea";
+      X = 150;
+      Y = 7;
+      Width = 100;
+      Height = 20;
+      Name = "cGy";
+    };
+
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Text";
+      ParentName = "PrescArea";
+      Name = "NumFx";
+      AttachLeft = "Prompt";
+      X = 200;
+      Y = 15;
+      Width = 50;
+      Height = 20;
+      QueryValueKey = "Store.FloatAt.NumFx.Value";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.NumFx";
+    };  
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "PrescArea";
+      X = 250;
+      Y = 22;
+      Width = 100;
+      Height = 20;
+      Name = "fx to";
+    };
+
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "PrescArea";
+      Name = "PrescROISelector";
+      X = 280;
+      Y = 0;
+      Width = 130;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "Store.StringAt.PrescROIName";
+      QueryListKey = "RoiList.*.Name";
+      QueryColorKey = "RoiList.*.Color";
+      QueryColorListKey = "RoiList.*.Color";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.PrescROIName";
+    }; 
+	
+
+
+// NEWLINE ##
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Text";
+      ParentName = "PrescArea";
+      Name = "cGyFx2";
+      AttachLeft = "Prompt";
+      X = 100;
+      Y = 30;
+      Width = 50;
+      Height = 20;
+      QueryValueKey = "Store.FloatAt.cGyFx2.Value";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.cGyFx2";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FloatAt.secDose=1";
+    };  
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "PrescArea";
+      X = 150;
+      Y = 37;
+      Width = 30;
+      Height = 20;
+      Name = "cGy";
+    };
+
+
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "PrescArea";
+      X = 185;
+      Y = 20;
+      Width = 10;
+      Height = 20;
+      Name = "x";
+    };
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "PrescArea";
+      Name = "PrescROISelector2";
+      X = 280;
+      Y = 30;
+      Width = 130;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "Store.StringAt.PrescROIName2";
+      QueryListKey = "RoiList.*.Name";
+      QueryColorKey = "RoiList.*.Color";
+      QueryColorListKey = "RoiList.*.Color";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.PrescROIName2";
+    }; 
+	
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "PrescArea";
+      Name = "SetPrescBtn";
+      X = 450;
+      Y = 5;
+      Width = 120;
+      Label = "Set Prescription";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/setPrescription.script";
+    };    
+	
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "PrescArea";
+      Name = "SetIsodBtn";
+      X = 450;
+      Y = 35;
+      Width = 120;
+      Label = "Set Isodoses";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/createIsodoses.script";
+    };    
+	
+//////////////////////////////////////////////////////////////
+//                   Grid                           //
+//////////////////////////////////////////////////////////////
+      
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "GridArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 300;
+     Height = 250;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "PrescArea";   
+     AttachBottom = "--";
+    };   
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "GridArea";
+      X = 10;
+      Y = 5;
+      Width = 400;
+      Height = 20;
+      Name = "Grid";
+    };
+
+//Store.StringAt.MakeGrid = "ControlPanel.Icon.Dose Grid Rescale.MakeCurrent";
+
+Store.StringAt.ColorPadding="green";
+IF.TrialList.Current.PatientRepresentation.TopZPadding.Value.NOTEQUALTO.#"0".THEN.Store.StringAt.ColorPadding="red";
+IF.TrialList.Current.PatientRepresentation.BottomZPadding.Value.NOTEQUALTO.#"0".THEN.Store.StringAt.ColorPadding="red";
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "GridArea";
+      Name = "RemovePaddingBtn";
+      X = 100;
+      Y = 0;
+      Width = 120;
+      Label = "Remove Padding";
+      QueryColorKey = "Store.StringAt.ColorPadding";
+      AddAction = "";
+      ReplaceCurrentAction = "TrialList.Current.PatientRepresentation.TopZPadding=0";
+      AddAction = "";
+      ReplaceCurrentAction = "TrialList.Current.PatientRepresentation.BottomZPadding=0";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "GridArea";
+      Name = "SetGridSizeBtn";
+      X = 230;
+      Y = 0;
+      Width = 80;
+      Label = "Draw";
+      AddAction = "";
+      ReplaceCurrentAction = "WindowList.CTSim.PanelList.#4.GotoPanel=1";
+      AddAction = "";
+      ReplaceCurrentAction = "TrialList.Current.DoseGrid.Display2d=1";
+      AddAction = "";
+      ReplaceCurrentAction = "ControlPanel.Icon.Dose Grid Rescale.MakeCurrent";
+    };    
+	
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "GridArea";
+      Name = "GridSize";
+      AttachLeft = "Prompt";
+      X = 320;
+      Y = 5;
+      Width = 100;
+      Height = 20;
+      UseQueryForLabel = 1;
+      UseDefaultSize = 1;
+      QueryValueKey = "TrialList.Current.DoseGrid.VoxelSize.X";
+      QueryColorKey = "greyscale";
+      ResetDependenciesWhenRealized = 1;
+    };  
+
+IF.TrialList.Current.DoseGrid.VoxelSize.X.GREATERTHAN.#"0.25".THEN={
+	Store.StringAt.SwapGridLab="=> 0.2 cm";
+	Store.StringAt.SwapGridCmdX="TrialList.Current.DoseGrid.VoxelSize.X=0.2";
+	Store.StringAt.SwapGridCmdY="TrialList.Current.DoseGrid.VoxelSize.Y=0.2";
+	Store.StringAt.SwapGridCmdZ="TrialList.Current.DoseGrid.VoxelSize.Z=0.2";
+};
+
+IF.TrialList.Current.DoseGrid.VoxelSize.X.LESSTHANOREQUALTO.#"0.25".THEN={
+	Store.StringAt.SwapGridLab="=> 0.3 cm";
+	Store.StringAt.SwapGridCmdX="TrialList.Current.DoseGrid.VoxelSize.X=0.3";
+	Store.StringAt.SwapGridCmdY="TrialList.Current.DoseGrid.VoxelSize.Y=0.3";
+	Store.StringAt.SwapGridCmdZ="TrialList.Current.DoseGrid.VoxelSize.Z=0.3";
+};
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "GridArea";
+      Name = "SetGridSizeBtn";
+      Width = 80;
+
+      X = 390;
+      Y = 0;
+      UseQueryForLabel = 1;
+      QueryValueKey = "Store.StringAt.SwapGridLab";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.SwapGridCmdX.Execute=1";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.SwapGridCmdY.Execute=1";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.SwapGridCmdZ.Execute=1";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+
+
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "GridArea";
+      X = 10;
+      Y = 45;
+      Width = 400;
+      Height = 20;
+      Name = "InvPlan";
+    };
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "GridArea";
+      Name = "LoadTemplateBtn";
+      X = 100;
+      Y = 40;
+      Label = "Load";
+      AddAction = "";
+      ReplaceCurrentAction = "StartIMRT";
+      AddAction = "";
+      ReplaceCurrentAction = "PluginManager.InversePlanningManager.ProtocolManager.FileList.FileOnly=Store.StringAt.Protocol";
+      AddAction = "";
+      ReplaceCurrentAction = "PluginManager.InversePlanningManager.ProtocolManager.Load";
+      AddAction = "";
+      ReplaceCurrentAction = "PluginManager.InversePlanningManager.TrialList.Current.BeamWeightOptimizationAfterConversion=0";
+      AddAction = "";
+      ReplaceCurrentAction = "PluginManager.PlanEvalPlugin.TrialList.Current.LineType=Medium Solid";
+    };    
+
+
+
+
+Store.StringAt.LogoPath = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/pine.xpm";
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "ColorIcon";
+      ParentName = "GridArea";
+      Name = "PignaLogo";
+      X = 480;
+      Y = 0;
+      UseDefaultSize = 1;
+      QueryValueKey = "Store.StringAt.LogoPath"; 
+      UseQueryForLabel = 1;
+      AddAction = "";
+      ReplaceCurrentAction = "InfoMessage = Giulio Benetti - giulio.benetti@gmail.com";
+    }; 
+
+
+
+
+//////////////////////////////////////////////////////////////
+//                        WINDOW                            //
+//////////////////////////////////////////////////////////////
+    
+    
+
+
+
+Store .At .PignaMW .AddChild = "";
+Store .At .PignaMW .WidgetList .Last = {
+     Name = "ButtonArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 450;
+     Height = 50;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachBottom = "FORM";   
+    };
+
+
+// Dismiss Button
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ButtonArea";
+      Name = "DismissButton";
+      X = 10;
+      Y = 5;
+      Font = "Bold";
+      Label = "Dismiss";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.PignaMW.Unrealize";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FreeAt.PignaMW";
+    };    
+    
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ButtonArea";
+      Name = "UpdateButton";
+      X = 110;
+      Y = 5;
+      Label = "Update";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = Store.FloatAt.PignaAddr";
+    };    
+    
+
+
+Store.At.PignaMW.AddChild = "";
+Store.At.PignaMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ButtonArea";
+      Name = "ResButton";
+      X = 810;
+      Y = 5;
+      Label = "RES Default";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/defaultValues.script";
+    };    
+
+Store.At.PignaMW.Create = "";
+
+

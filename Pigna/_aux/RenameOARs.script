@@ -1,0 +1,411 @@
+//////////////////////////////////////
+/////		PELVI	   	//////
+//////////////////////////////////////
+
+RoiList.#"Retto".Name="Rectum";
+RoiList.#"RETTO".Name="Rectum";
+RoiList.#"retto".Name="Rectum";
+RoiList.#"rectum".Name="Rectum";
+RoiList.#"RECTUM".Name="Rectum";
+RoiList.#"RECTUM1".Name="Rectum";
+RoiList.#"RECTUM2".Name="Rectum";
+RoiList.#"rett".Name="Rectum";
+RoiList.#"Rett".Name="Rectum";
+
+RoiList.#"Vescica".Name="Bladder";
+RoiList.#"VESCICA".Name="Bladder";
+RoiList.#"vescica".Name="Bladder";
+RoiList.#"bladder".Name="Bladder";
+RoiList.#"BLADDER".Name="Bladder";
+
+RoiList.#"skin".Name="External";
+RoiList.#"Skin".Name="External";
+RoiList.#"SKIN".Name="External";
+RoiList.#"Body".Name="External";
+RoiList.#"body".Name="External";
+RoiList.#"External_Contour".Name="External";
+RoiList.#"Contour".Name="External";
+RoiList.#"external".Name="External";
+
+RoiList.#"Femur L".Name="Femur L";
+RoiList.#"FemurL".Name="Femur L";
+RoiList.#"Femur_L".Name="Femur L";
+RoiList.#"femur L".Name="Femur L";
+RoiList.#"femur_L".Name="Femur L";
+RoiList.#"FEMUR_L".Name="Femur L";
+RoiList.#"Femore Sn".Name="Femur L";
+RoiList.#"femore sn".Name="Femur L";
+
+RoiList.#"Femur R".Name="Femur R";
+RoiList.#"FemurR".Name="Femur R";
+RoiList.#"Femur_R".Name="Femur R";
+RoiList.#"femur R".Name="Femur R";
+RoiList.#"femur_R".Name="Femur R";
+RoiList.#"FEMUR_R".Name="Femur R";
+RoiList.#"Femore Ds".Name="Femur R";
+RoiList.#"femore Ds".Name="Femur R";
+
+RoiList.#"FEMUR_HEAD_L".Name="Femoral Head L";
+RoiList.#"Femoral_Head_L".Name="Femoral Head L";
+RoiList.#"femoral_head_L".Name="Femoral Head L";
+
+RoiList.#"FEMUR_HEAD_R".Name="Femoral Head R";
+RoiList.#"Femoral_Head_R".Name="Femoral Head R";
+RoiList.#"femoral_head_R".Name="Femoral Head R";
+
+RoiList.#"Bulbo".Name="Bulb";
+RoiList.#"bulbo".Name="Bulb";
+
+RoiList.#"intestino".Name="Bowel";
+RoiList.#"Intestino".Name="Bowel";
+RoiList.#"INTESTINO".Name="Bowel";
+RoiList.#"bowel".Name="Bowel";
+RoiList.#"BOWEL".Name="Bowel";
+
+RoiList.#"prostata".Name="Prostate";
+RoiList.#"PROSTATE1".Name="Prostate";
+RoiList.#"PROSTATE2".Name="Prostate";
+
+RoiList.#"genitali".Name="Genitals";
+RoiList.#"Genitali".Name="Genitals";
+RoiList.#"GENITALI".Name="Genitals";
+
+//////////////////////////////////////
+/////		ADDOME	   	//////
+//////////////////////////////////////
+
+
+RoiList.#"rene sn".Name="Kidney L";
+RoiList.#"rene_sn".Name="Kidney L";
+RoiList.#"Rene sn".Name="Kidney L";
+RoiList.#"Rene_sn".Name="Kidney L";
+RoiList.#"RENE SN".Name="Kidney L";
+RoiList.#"RENE_SN".Name="Kidney L";
+RoiList.#"KIDNEY_L".Name="Kidney L";
+
+RoiList.#"rene dx".Name="Kidney R";
+RoiList.#"rene_dx".Name="Kidney R";
+RoiList.#"Rene dx".Name="Kidney R";
+RoiList.#"Rene_dx".Name="Kidney R";
+RoiList.#"RENE DX".Name="Kidney R";
+RoiList.#"RENE_DX".Name="Kidney R";
+RoiList.#"KIDNEY_R".Name="Kidney R";
+
+RoiList.#"fegato".Name="Liver";
+RoiList.#"liver".Name="Liver";
+RoiList.#"LIVER".Name="Liver";
+
+RoiList.#"SPINAL_CANAL".Name="Spinal Canal";
+RoiList.#"Spinal_Canal".Name="Spinal Canal";
+RoiList.#"PRV Cord".Name="Spinal Canal";
+RoiList.#"PRV_Cord".Name="Spinal Canal";
+
+RoiList.#"SPINAL_CORD".Name="Spinal Cord";
+RoiList.#"SPINAL CORD".Name="Spinal Cord";
+RoiList.#"Cord".Name="Spinal Cord";
+RoiList.#"CORD".Name="Spinal Cord";
+RoiList.#"midollo".Name="Spinal Cord";
+RoiList.#"Midollo".Name="Spinal Cord";
+RoiList.#"spinal cord".Name="Spinal Cord";
+RoiList.#"spinal_cord".Name="Spinal Cord";
+RoiList.#"Spinal_Cord".Name="Spinal Cord";
+
+
+
+//////////////////////////////////////
+/////		HN	   	//////
+//////////////////////////////////////
+
+RoiList.#"ACOUSTIC_L".Name="Acoustic L";
+RoiList.#"orecchio interno sn".Name="Acoustic L";
+
+RoiList.#"ACOUSTIC_R".Name="AcousticR";
+RoiList.#"orecchio interno ds".Name="AcousticR";
+
+RoiList.#"brain".Name="Brain";
+RoiList.#"BRAIN1".Name="Brain";
+RoiList.#"BRAIN2".Name="Brain";
+
+RoiList.#"brainstem".Name="Brainstem";
+RoiList.#"BRAINSTEM".Name="Brainstem";
+RoiList.#"tronco".Name="Brainstem";
+RoiList.#"tronco encefalico".Name="Brainstem";
+RoiList.#"tronco_encefalico".Name="Brainstem";
+RoiList.#"BSTEM".Name="Brainstem";
+
+RoiList.#"chiasma".Name="Chiasm";
+RoiList.#"Chiasma".Name="Chiasm";
+RoiList.#"CHIASM".Name="Chiasm";
+RoiList.#"CHIASMA".Name="Chiasm";
+
+RoiList.#"COCHLEA_L".Name="CochleaL";
+RoiList.#"COCLEA L".Name="CochleaL";
+
+RoiList.#"COCHLEA_R".Name="CochleaR";
+RoiList.#"COCLEA R".Name="CochleaR";
+
+RoiList.#"OD".Name="Eye R";
+RoiList.#"EYE_R".Name="Eye R";
+RoiList.#"EYE R".Name="Eye R";
+RoiList.#"eye_R".Name="Eye R";
+RoiList.#"eye R".Name="Eye R";
+RoiList.#"occhio dx".Name="Eye R";
+RoiList.#"occhio_dx".Name="Eye R";
+RoiList.#"Occhio dx".Name="Eye R";
+RoiList.#"Occhio_dx".Name="Eye R";
+
+RoiList.#"OS".Name="Eye L";
+RoiList.#"EYE_L".Name="Eye L";
+RoiList.#"EYE L".Name="Eye L";
+RoiList.#"eye_L".Name="Eye L";
+RoiList.#"eye L".Name="Eye L";
+RoiList.#"occhio sn".Name="Eye L";
+RoiList.#"occhio_sn".Name="Eye L";
+RoiList.#"Occhio sn".Name="Eye L";
+RoiList.#"Occhio_sn".Name="Eye L";
+
+RoiList.#"GLOTTIS".Name="Glottis";
+RoiList.#"Glottide".Name="Glottis";
+RoiList.#"glottide".Name="Glottis";
+
+RoiList.#"LENS_L".Name="Len L";
+RoiList.#"LENS L".Name="Len L";
+RoiList.#"Lens_L".Name="Len L";
+RoiList.#"Lens L".Name="Len L";
+RoiList.#"lens_L".Name="Len L";
+RoiList.#"lens L".Name="Len L";
+RoiList.#"cristallino_sn".Name="Len L";
+RoiList.#"cristallino sn".Name="Len L";
+RoiList.#"Cristallino_sn".Name="Len L";
+RoiList.#"Cristallino sn".Name="Len L";
+RoiList.#"CRISTALLINO SIN".Name="Len L";
+RoiList.#"crist sx".Name="Len L";
+RoiList.#"crist sn".Name="Len L";
+
+RoiList.#"LENS_R".Name="Len R";
+RoiList.#"LENS R".Name="Len R";
+RoiList.#"Lens_R".Name="Len R";
+RoiList.#"Lens R".Name="Len R";
+RoiList.#"lens_R".Name="Len R";
+RoiList.#"lens R".Name="Len R";
+RoiList.#"cristallino_dx".Name="Len R";
+RoiList.#"cristallino dx".Name="Len R";
+RoiList.#"Cristallino_dx".Name="Len R";
+RoiList.#"Cristallino dx".Name="Len R";
+RoiList.#"CRISTALLINO DX".Name="Len R";
+RoiList.#"crist dx".Name="Len R";
+RoiList.#"crist dn".Name="Len R";
+
+RoiList.#"MANDIBLE".Name="Mandible";
+RoiList.#"Mandibola".Name="Mandible";
+RoiList.#"mandibola".Name="Mandible";
+
+RoiList.#"OPTIC_NRV_L".Name="Optical Nerv L";
+RoiList.#"OPTIC NRV L".Name="Optical Nerv L";
+RoiList.#"Optic_Nrv_L".Name="Optical Nerv L";
+RoiList.#"Optic Nrv L".Name="Optical Nerv L";
+RoiList.#"optic n L".Name="Optical Nerv L";
+RoiList.#"n. ottico sn".Name="Optical Nerv L";
+RoiList.#"n.ottico sn".Name="Optical Nerv L";
+RoiList.#"NERVO OTTICO SIN".Name="Optical Nerv L";
+RoiList.#"no sx".Name="Optical Nerv L";
+
+RoiList.#"OPTIC_NRV_R".Name="Optical Nerv R";
+RoiList.#"OPTIC NRV R".Name="Optical Nerv R";
+RoiList.#"Optic_Nrv_R".Name="Optical Nerv R";
+RoiList.#"Optic Nrv R".Name="Optical Nerv R";
+RoiList.#"optic n R".Name="Optical Nerv R";
+RoiList.#"n. ottico dx".Name="Optical Nerv R";
+RoiList.#"n.ottico dx".Name="Optical Nerv R";
+RoiList.#"NERVO OTTICO DX".Name="Optical Nerv R";
+RoiList.#"no dx".Name="Optical Nerv L";
+
+RoiList.#"ORAL_CAVITY".Name="Oral Cavity";
+RoiList.#"ORAL CAVITY".Name="Oral Cavity";
+RoiList.#"oral cavity".Name="Oral Cavity";
+RoiList.#"oral_cavity".Name="Oral Cavity";
+RoiList.#"cavo orale".Name="Oral Cavity";
+RoiList.#"cavo_orale".Name="Oral Cavity";
+RoiList.#"CAVO ORALE".Name="Oral Cavity";
+RoiList.#"CAVO_ORALE".Name="Oral Cavity";
+
+RoiList.#"PAROTID_R1".Name="Parotid R";
+RoiList.#"PAROTID_R2".Name="Parotid R";
+RoiList.#"PAROTID_R3".Name="Parotid R";
+RoiList.#"parotide dx".Name="Parotid R";
+RoiList.#"parotid R".Name="Parotid R";
+RoiList.#"ParotidR".Name="Parotid R";
+
+RoiList.#"PAROTID_L1".Name="Parotid L";
+RoiList.#"PAROTID_L2".Name="Parotid L";
+RoiList.#"PAROTID_L3".Name="Parotid L";
+RoiList.#"parotide sn".Name="Parotid L";
+RoiList.#"parotide sx".Name="Parotid L";
+RoiList.#"parotid L".Name="Parotid L";
+RoiList.#"ParotidL".Name="Parotid L";
+
+RoiList.#"PHARYN_CONST".Name="Pharynx";
+RoiList.#"PHARYNX_CONST".Name="Pharynx";
+RoiList.#"faringe".Name="Pharynx";
+RoiList.#"Faringe".Name="Pharynx";
+RoiList.#"FARINGE".Name="Pharynx";
+
+RoiList.#"laringe".Name="Larynx";
+RoiList.#"Laringe".Name="Larynx";
+RoiList.#"LARINGE".Name="Larynx";
+
+RoiList.#"ESOFAGO".Name="Esophagus";
+RoiList.#"Esofago".Name="Esophagus";
+RoiList.#"esofago".Name="Esophagus";
+
+RoiList.#"SOFT_PALATE".Name="SoftPalate";
+RoiList.#"palato molle".Name="SoftPalate";
+
+RoiList.#"SPINAL_CANAL".Name="Spinal Canal";
+RoiList.#"canale vertebrale".Name="Spinal Canal";
+
+RoiList.#"THYROID".Name="Thyroid";
+RoiList.#"tiroide".Name="Thyroid";
+
+RoiList.#"RETINA DX".Name="Retina R";
+RoiList.#"RETINA_DX".Name="Retina R";
+RoiList.#"retina dx".Name="Retina R";
+RoiList.#"retina_dx".Name="Retina R";
+
+RoiList.#"RETINA SN".Name="Retina L";
+RoiList.#"RETINA_SN".Name="Retina L";
+RoiList.#"retina sn".Name="Retina L";
+RoiList.#"retina_sn".Name="Retina L";
+
+RoiList.#"orecchio int dx".Name="Inner Ear R";
+RoiList.#"Orecchio int dx".Name="Inner Ear R";
+
+RoiList.#"orecchio int sn".Name="Inner Ear L";
+RoiList.#"Orecchio int sn".Name="Inner Ear L";
+
+RoiList.#"TALAMO".Name="Thalamus";
+RoiList.#"Talamo".Name="Thalamus";
+
+RoiList.#"TALAMO SIN".Name="Thalamus L";
+RoiList.#"Talamo sin".Name="Thalamus L";
+
+RoiList.#"TALAMO DX".Name="Thalamus R";
+RoiList.#"Talamo dx".Name="Thalamus R";
+
+RoiList.#"CAUDATO".Name="Caudate";
+RoiList.#"Caudato".Name="Caudate";
+
+RoiList.#"CAUDATO SIN".Name="Caudate L";
+RoiList.#"Caudato sin".Name="Caudate L";
+
+RoiList.#"CAUDATO DX".Name="Caudate R";
+RoiList.#"Caudato dx".Name="Caudate R";
+
+
+//////////////////////////////////////
+/////		TORAX	   	//////
+//////////////////////////////////////
+
+
+//////////////////////////////////////
+/////		PTVs-HN	   	//////
+//////////////////////////////////////
+
+
+RoiList.#"PTV 69.96".Name="PTV6996";
+RoiList.#"ptv 69.96".Name="PTV6996";
+RoiList.#"PTV_69.96".Name="PTV6996";
+RoiList.#"ptv_69.96".Name="PTV6996";
+RoiList.#"PTV69.96".Name="PTV6996";
+RoiList.#"ptv69.96".Name="PTV6996";
+
+RoiList.#"PTV 59.40".Name="PTV5940";
+RoiList.#"ptv 59,4 Gy".Name="PTV5940";
+RoiList.#"ptv 59.40".Name="PTV5940";
+RoiList.#"PTV_59.40".Name="PTV5940";
+RoiList.#"ptv_59.40".Name="PTV5940";
+RoiList.#"PTV59.40".Name="PTV5940";
+RoiList.#"ptv59.40".Name="PTV5940";
+
+//////////////////////////////////////
+/////    PTVs-Prostate	   	//////
+//////////////////////////////////////
+
+RoiList.#"PTV 70".Name="PTV7000";
+RoiList.#"ptv 70".Name="PTV7000";
+RoiList.#"PTV_70".Name="PTV7000";
+RoiList.#"ptv_70".Name="PTV7000";
+RoiList.#"PTV70".Name="PTV7000";
+RoiList.#"ptv70".Name="PTV7000";
+RoiList.#"ptv7000".Name="PTV7000";
+
+RoiList.#"PTV 64.4".Name="PTV6440";
+RoiList.#"ptv 64.4".Name="PTV6440";
+RoiList.#"PTV_64.4".Name="PTV6440";
+RoiList.#"ptv_64.4".Name="PTV6440";
+RoiList.#"PTV64.4".Name="PTV6440";
+RoiList.#"ptv64.4".Name="PTV6440";
+RoiList.#"ptv6440".Name="PTV6440";
+
+RoiList.#"PTV 50.4".Name="PTV5040";
+RoiList.#"ptv 50.4".Name="PTV5040";
+RoiList.#"PTV_50.4".Name="PTV5040";
+RoiList.#"ptv_50.4".Name="PTV5040";
+RoiList.#"PTV50.4".Name="PTV5040";
+RoiList.#"ptv50.4".Name="PTV5040";
+RoiList.#"ptv5040".Name="PTV5040";
+
+RoiList.#"PTV 66".Name="PTV6600";
+RoiList.#"ptv 66".Name="PTV6600";
+RoiList.#"ptv 66 Gy".Name="PTV6600";
+RoiList.#"PTV_66".Name="PTV6600";
+RoiList.#"ptv_66".Name="PTV6600";
+RoiList.#"PTV66".Name="PTV6600";
+RoiList.#"ptv66".Name="PTV6600";
+RoiList.#"ptv6600".Name="PTV6600";
+
+
+
+
+RoiList.#"PTV 66.08". Name="PTV6608";
+RoiList.#"ptv 66.08".Name="PTV6608";
+RoiList.#"PTV_66.08".Name="PTV6608";
+RoiList.#"ptv_66.08".Name="PTV6608";
+RoiList.#"PTV66.08".Name="PTV6608";
+RoiList.#"ptv66.08".Name="PTV6608";
+RoiList.#"ptv6608".Name="PTV6608";
+
+// REMOVE THE FOLLOWING LINES TO MAINTAIN THE DIFFERENCE AMONG FEMUR AND FEORAL HEAD
+
+RoiList.#"Femoral Head R".Name="Femur R";
+RoiList.#"Femoral Head L".Name="Femur L";
+
+
+
+RoiList.#"PTV 50".Name="PTV5000";
+RoiList.#"ptv 50".Name="PTV5000";
+RoiList.#"PTV 54".Name="PTV5400";
+RoiList.#"ptv 49,95".Name="PTV4995";
+RoiList.#"PTV 45,9".Name="PTV4590";
+
+RoiList.#"ptv 59.4".Name="PTV5940";
+
+RoiList.#"ptv 60".Name="PTV6000";
+
+RoiList.#"ptv 56.1".Name="PTV5610";
+RoiList.#"ptv 52.8".Name="PTV5280";
+
+RoiList.#"ptv 53.2".Name="PTV5320";
+
+RoiList.#"lung R".Name="Lung R";
+
+RoiList.#"lung r+ l".Name="Lung R+L";
+RoiList.#"lung r+l".Name="Lung R+L";
+RoiList.#"lung l+r".Name="Lung R+L";
+
+
+RoiList.#"heart".Name="Hearth";
+RoiList.#"cuore".Name="Hearth";
+
+
+RoiList.#"uretra".Name="Urethra";

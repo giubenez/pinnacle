@@ -1,0 +1,27 @@
+Store.FloatAt.PignaMWX = 2000;
+Store.FloatAt.PignaMWY = 150;
+
+
+Store.FloatAt.GStart.Value = 184;
+Store.FloatAt.GStop = 176;
+Store.FloatAt.CollAng = 10;
+
+
+CreateNewPOI="";
+Store.StringAt.MyName=PoiList.Last.ObjectVersion.LoginName;
+PoiList.Last.Destroy=1;
+
+
+Script.ExecuteNow = "/usr/local/PinnacleSiteData/clinical/Scripts/Pigna/_aux/loadProtocols.script";
+
+Store.StringAt.ColorRename="red";
+
+Store.StringAt.ExternalName = "External";
+Store.StringAt.ISOCT = "ISOCT";
+Store.StringAt.Isocenter = "Isocenter";
+
+//InfoMessage = "Welcome to PIGNA!";
+Store.FloatAt.secDose=0;
+Store.FloatAt.Avviato = 1;
+
+

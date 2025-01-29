@@ -1,0 +1,49 @@
+// This script must be executed after MBS couch model has been fully positioned 
+
+// Convert MBS model to contour
+RoiManager .ConvertAllMeshToContours = "Convert All Mesh to Contours";
+
+// Perform 4 mm contraction to create CouchInterior
+RoiList .#"*" .ResetRoiExpandState = "Clear All";
+RoiList.Current = "Elekta_iBeamEvo";
+RoiList .Current.RoiExpandState = "Source";
+RoiExpandControl .CreateNewTarget = "1";
+RoiExpandControl .TargetRoiName = "CouchInterior";
+RoiExpandControl .CreateNewTarget = "1";
+RoiExpandControl .ConstantPadding = " 0.50";
+RoiExpandControl .UseConstantPadding = "1";
+RoiExpandControl .Expand = "0";
+RoiExpandControl .DoExpand = "Contract";
+RoiList .#"*" .ResetRoiExpandState = "Clear All";
+RoiList.Current = "Elekta_iBeamEvo";
+RoiList.Current.Name = "CouchSurface";
+
+// Perform expansion to create CouchAir
+RoiList .#"*" .ResetRoiExpandState = "Clear All";
+RoiList .Current .RoiExpandState = "Source";
+RoiExpandControl .TargetRoiName = "CouchAir";
+RoiExpandControl .CreateNewTarget = "1";
+RoiExpandControl .UseConstantPadding = "0";
+RoiExpandControl .NegXPadding = "5";
+RoiExpandControl .PosXPadding = "5";
+RoiExpandControl .NegYPadding = "0";
+RoiExpandControl .PosYPadding = "2";// changed to remove the CT couch below
+RoiExpandControl .NegZPadding = "0"; 
+RoiExpandControl .PosZPadding = "0";
+RoiExpandControl .Expand = "1";
+RoiExpandControl .DoExpand = "";
+RoiList.Current = "CouchAir";
+RoiList .Current .Display2d = "Off";
+RoiList .CouchInterior .Display2d = "Off";
+
+// Set density to CouchInterior and CouchSurface
+RoiList .CouchAir .OverrideDensity = 1;
+RoiList .CouchSurface .OverrideDensity = 1;
+RoiList .CouchInterior .OverrideDensity = 1;
+RoiList .CouchAir .Density = "0";
+RoiList .CouchSurface .Density = "0.7";
+RoiList .CouchInterior .Density = "0";
+
+//WarningMessage = "Remember to remove couch ROIs in case of pre-treatment verification!";
+
+/* Œ */
