@@ -58,7 +58,8 @@ Use this script to verify if all the patients contained in the archived/backuppe
 3) Launch anodther time the script and press 2 (without closing the other instance)
 4) Whan both the scripts finish, press 3 in one of them. Close the other
 
-![image](https://github.com/user-attachments/assets/7635a568-d9f0-4bfd-838c-d99b6fe7e68d)
+![image](https://github.com/user-attachments/assets/2c356fde-a078-4d55-ba84-cc94a7c9089e)
+
 
 
 
