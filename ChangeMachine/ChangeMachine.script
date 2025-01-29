@@ -1,0 +1,195 @@
+/**************************************************************
+***                 ChangeMachine.Script                        ***
+***                  Giulio Benetti                         ***
+***            giulio.benetti@gmail.com                     ***
+***                                                         ***
+**************************************************************/
+
+
+//////////////////////////////////////////////////////////////
+//                      LOAD DEF                            //
+//////////////////////////////////////////////////////////////
+
+Store.StringAt.ChangeMachineCMDdef = "SpawnCommand= /usr/local/adacnew/PinnacleSiteData/Scripts/ChangeMachine/changeMachineInBeams.sh";
+
+
+//////////////////////////////////////////////////////////////
+//                        WINDOW                            //
+//////////////////////////////////////////////////////////////
+
+// Close window if it is already open
+Store.At.ChangeMachineMW.Unrealize = "Dismiss";
+Store.At.ChangeMachineMW = "Dismiss";
+
+// Create the window
+Store.At.ChangeMachineMW = GeoFORM {
+                   Name = "Cambia Macchina";
+                 };
+
+
+//////////////////////////////////////////////////////////////
+//                      LEVELS                              //
+//////////////////////////////////////////////////////////////
+
+
+Store.At.ChangeMachineMW.WidgetList.GeoWidget = {
+      WidgetClass = "Form";
+      Name = "TopLevel";
+      Label = "CambiaMacchina v1.0";
+      Width = 200;
+      Height = 120; 
+      X = 2000;
+      Y = 200;
+    };
+
+Store .At .ChangeMachineMW .AddChild = "";
+Store .At .ChangeMachineMW .WidgetList .Last = {
+     Name = "BaseArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 400;
+     Height = 20;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachTop = "FORM";
+     AttachBottom = "--";
+    };
+
+Store.At.ChangeMachineMW.AddChild = "";
+Store.At.ChangeMachineMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "BaseArea";
+      X = 16;
+      Y = 5;
+      Width = 300;
+      Height = 20;
+      Name = "Macchina di destinazione";
+    };
+
+Store.StringAt.space = " ";
+Store.StringAt.semic = ": ";
+Store.StringAt.apex = "\"";
+
+Store.At.ChangeMachineMW.AddChild = "";
+Store.At.ChangeMachineMW.WidgetList.Last = {         
+      WidgetClass = "OptionMenu";
+      ParentName = "BaseArea";
+      Name = "MachineSelector";
+      X = 2;
+      Y = 25;
+      Width = 150;
+      Height = 20;
+      AddLabelToStartOfList = 1;
+      Label = "---";
+      QueryValueKey = "Store.StringAt.Machine";
+      QueryListKey = "MachineList.*.Name";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.Machine";
+      AddAction = "";
+      ReplaceCurrentAction = "MachineList.Current";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/adacnew/PinnacleSiteData/Scripts/ChangeMachine/exportbeamsGB.Script";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.StringAt.ChangeMachineCMD  = Store.StringAt.ChangeMachineCMDdef";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ChangeMachineCMD.AppendString  = Store.StringAt.space";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ChangeMachineCMD.AppendString  = Store.StringAt.apex";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ChangeMachineCMD.AppendString  = Store.StringAt.Machine";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ChangeMachineCMD.AppendString  = Store.StringAt.semic";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ChangeMachineCMD.AppendString  = MachineList.Current.VersionTimestamp";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ChangeMachineCMD.AppendString  = Store.StringAt.apex";
+      //AddAction = "";
+      //ReplaceCurrentAction = "Echo = Store.StringAt.ChangeMachineCMD";
+      AddAction = "";
+      ReplaceCurrentAction = "SpawnCommand=Store.StringAt.ChangeMachineCMD";
+      AddAction = "";
+      ReplaceCurrentAction = "Script.ExecuteNow = /usr/local/adacnew/PinnacleSiteData/Scripts/ChangeMachine/importbeamsGB.Script";
+    }; 
+	
+
+	
+
+//////////////////////////////////////////////////////////////
+//                        INFO                              //
+//////////////////////////////////////////////////////////////
+    
+    
+
+
+
+Store .At .ChangeMachineMW .AddChild = "";
+Store .At .ChangeMachineMW .WidgetList .Last = {
+     Name = "InfoArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 450;
+     Height = 50;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachBottom = "FORM";   
+    };
+
+
+Store.At.ChangeMachineMW.AddChild = "";
+Store.At.ChangeMachineMW.WidgetList.Last = {
+      WidgetClass = "Label";
+      ParentName = "InfoArea";
+      X = 0;
+      Y = 5;
+      Width = 300;
+      Name = "giulio.benetti@aulss8.veneto.it - 7305";
+    };
+
+//////////////////////////////////////////////////////////////
+//                        BUTTONS                           //
+//////////////////////////////////////////////////////////////
+    
+    
+
+
+
+Store .At .ChangeMachineMW .AddChild = "";
+Store .At .ChangeMachineMW .WidgetList .Last = {
+     Name = "ButtonArea";
+     ParentName = "TopLevel";
+     WidgetClass = "DrawingArea";
+     Width = 450;
+     Height = 50;
+     AttachRight = "FORM";
+     AttachLeft = "FORM";
+     AttachBottom = "InfoArea";   
+    };
+
+
+// Dismiss Button
+Store.At.ChangeMachineMW.AddChild = "";
+Store.At.ChangeMachineMW.WidgetList.Last = {
+      WidgetClass = "PushButton";
+      ParentName = "ButtonArea";
+      Name = "DismissButton";
+      X = 10;
+      Y = 0;
+      Width = 180;
+      Font = "Bold";
+      Label = "               Dismiss";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FreeAt.Machine";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.At.ChangeMachineMW.Unrealize";
+      AddAction = "";
+      ReplaceCurrentAction = "Store.FreeAt.ChangeMachineMW";
+    };    
+ 
+
+
+
+
+
+Store.At.ChangeMachineMW.Create = "";
+
+

@@ -1,0 +1,3 @@
+IF .TrialList .Current .BeamList .#"*" .HasRelyOnObject .THEN .WindowList .NoBeamDelete .Create .ELSE .TrialList .Current .BeamList .DestroyAllChildren = "";
+
+TrialList.Current.BeamList.Load="/usr/local/adacnew/PinnacleSiteData/Scripts/ChangeMachine/tmp/beamuf.edit.out";

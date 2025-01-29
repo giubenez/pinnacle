@@ -1,0 +1,4 @@
+SpawnCommand="rm /usr/local/adacnew/PinnacleSiteData/Scripts/ChangeMachine/tmp/*.*";
+TrialList.Current.BeamList.Save="/usr/local/adacnew/PinnacleSiteData/Scripts/ChangeMachine/tmp/beamuf.out";
+SpawnCommand="rm /usr/local/adacnew/PinnacleSiteData/Scripts/ChangeMachine/tmp/beamuf.out.binary.*";
+SpawnCommand="rm /usr/local/adacnew/PinnacleSiteData/Scripts/ChangeMachine/tmp/beamuf.out.copyablebinary.*";
