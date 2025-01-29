@@ -166,8 +166,8 @@ done
 
 wannaQuit=0
 
-echo "Questo script serve per verificare che l'istituzione di cui si e' effettuato il backup contiene gli stessi pazienti sull'archivio e sull'istituzione del Pinnacle."
-echo "Posizionare lo script nella cartella dell'archivio da verificare."
+echo "This script aims to verify whether all the patients inside a specific institution are present inside the archived folder."
+echo "Put the script in the folder of the archive you want to verify."
 
 while [ $wannaQuit -eq 0 ]; do
   spwnMenu
